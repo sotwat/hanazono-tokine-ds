@@ -15,4 +15,4 @@ PC-NSF-HiFiGAN 2025.02 — OpenVPI Community、CC BY-NC-SA 4.0。
 
 ## 参照UST
 
-サムライハート：968103。ノーダウト：いろあい。staple stable：ivyleaf33 (Vyx Le)。staple stableの非商用条件を尊重します。UST・歌詞・原録音は配布ZIPに含みません。
+サムライハート：968103。ノーダウト：いろあい。staple stable：ivyleaf33 (Vyx Le)。staple stableの非商用条件を尊重します。Tell Your World：GowitheBeat。UST・歌詞・原録音は配布ZIPに含みません。
