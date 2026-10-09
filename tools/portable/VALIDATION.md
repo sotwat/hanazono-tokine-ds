@@ -1,4 +1,4 @@
-# v1.2.0-rc.1 verification (2026-10-10)
+# v1.2.0-rc.2 verification (2026-10-10)
 
 - macOS Apple Silicon; ONNX Runtime CPU 1.23.2: all eight packaged models load.
 - Standard ONNX domains only; IR 10 / opset 18 for the modified pair.
@@ -10,5 +10,6 @@
 - Packaged pair in `/Applications/OpenUtau.app`, version 0.1.572.1: singer recognized; 11-note test phrase rendered after retiring the old tensor/wave caches. Native cache 44.1 kHz, 148,992 samples, finite, peak 0.530762. UI showed playback reaching the end without a render error. Application binaries were not changed.
 - ZIP CRC valid; compiler-local user paths removed; no recordings, song scores, private test inputs or lyrics included.
 - Earlier pyworld vs eager diffsptk parameter comparison on one donor: median absolute log spectral-envelope error 0.0751 and median absolute aperiodicity difference 0.00412. This is not a perceptual equivalence claim.
+- The acoustic wrapper sustains 40-frame vowels and N/m/n/f/h/s/sh/z, with duration-adaptive source windows. 48-frame /a/ and /o/, N and /s/ change only eligible mel frames; 30-frame /a/ and stop /d/ remain bit-identical to raw mel. Paired vocoder remains finite, including high pitch. Actual UST phrase excerpts are verified in the local sustain-coverage record, not included here.
 
-Unverified: Windows/Linux, other editors, GPU providers, fresh ZIP installation through the wizard, owner listening approval of the portable implementation. Distribution is a prerelease, not a replacement of the stable release.
+Unverified: Windows/Linux, other editors, GPU providers, fresh ZIP installation through the wizard, owner listening approval of the portable implementation and new sustain update. Distribution is a prerelease, not a replacement of the stable release.

@@ -8,12 +8,15 @@ OpenUtauで使える日本語のDiffSinger歌声音源です。本人歌唱を�
 | --- | --- |
 | 修正版の歌唱生成 | OpenUtauで通常域・高音域を確認済み |
 | 発音の安定化 | 音響モデル構成・合成深さを更新 |
-| 配布版 | v1.1.1／発音改善版 |
+| 正式配布版 | v1.1.1／発音改善版 |
+| 高音WORLD版 | v1.2.0-rc.2／配布候補。0.46秒以上の母音・一部持続子音に対応 |
 | Windows・Linuxでの動作 | 未検証 |
 
 ## ダウンロード
 
 [最新版の配布ZIPはこちら](https://github.com/sotwat/hanazono-tokine-ds/releases/latest)
+
+高音WORLD版の配布候補は[こちら](https://github.com/sotwat/hanazono-tokine-ds/releases/tag/v1.2.0-rc.2)です。WORLD処理は通常のDiffSinger音源構成と異なり、同梱モデル一式とbatch 2を渡せるソフトが必要です。対応環境・制限は配布候補のREADMEをご確認ください。
 
 ## 導入
 
