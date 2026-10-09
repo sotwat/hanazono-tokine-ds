@@ -38,8 +38,7 @@ def register_weight(f0):
     midi = 69 + 12*np.log2(np.maximum(f0, 1)/440)
     u = np.clip((midi-74)/3, 0, 1)
     high = np.where(f0 >= hz(77)-.001, 1.0, u*u*(3-2*u))
-    low = ((f0 > 0) & (f0 <= hz(54)+.001)).astype(float)
-    return np.where(f0 > 0, np.maximum(high, low), 0)
+    return np.where(f0 > 0, high, 0)
 
 def edge_weight(frame_weight, samples, fade_ms=20):
     frame_weight = np.asarray(frame_weight, dtype=float)
@@ -95,7 +94,7 @@ def render(bank, inputs, output):
     np.savez(output/'parameters.npz', target_f0=target, source_f0=source, weight=weight,
              spectral=spectral, aperiodicity=ap)
     report = {'sample_rate':SR,'samples':len(baseline),'donor_midi_range':[57,72],
-              'high_blend_start_midi':74,'high_blend_full_midi':77,'target_low_midi':54,'unprocessed_samples_identical':True,
+              'high_blend_start_midi':74,'high_blend_full_midi':77,'low_register_resynthesis':False,'unprocessed_samples_identical':True,
               'replacement_samples':int(np.count_nonzero(weight)),
               'peaks':{k:float(abs(x).max()) for k,x in [('original',baseline),('hybrid',hybrid)]},
               'processing':'WORLD spectral envelope and aperiodicity retained; target F0 substituted; no EQ or gain',

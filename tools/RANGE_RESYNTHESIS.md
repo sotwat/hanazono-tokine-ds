@@ -6,7 +6,10 @@ OpenUtau renderer. No change is made to the installed singer by this command.
 It generates a donor with the existing Tokine DS acoustic model in A3–C5,
 then extracts WORLD spectral envelope and aperiodicity. WORLD synthesis uses
 the requested F0 with those donor characteristics. The high mix rises smoothly from D5 (0%) to F5 (100%):
-D#5 is about 26% and E5 about 74%. F#3- remains the low target.
+D#5 is about 26% and E5 about 74%. Low-register resynthesis is disabled.
+The user rejected the low-register WORLD timbre after the higher auditions;
+low notes retain the original DS waveform. This supersedes the low-target
+settings in the historical verification sections below.
 Equal-power mixing and 20 ms inward edge fades are used. Unprocessed samples
 are exactly preserved within each run. Selection currently follows continuous
 F0, not the editor's discrete note names; vibrato across a threshold can switch
