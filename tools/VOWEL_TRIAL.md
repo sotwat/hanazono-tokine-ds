@@ -11,3 +11,7 @@ Python / PyYAMLで `python connect_a_vowels.py SOURCE.ustx TRIAL.ustx` を実行
 `python long_vowel_patch.py ORIGINAL_ACOUSTIC.onnx NEW_ACOUSTIC.onnx`。a/e/i/o/uの129frames以上を対象に、開始後17〜61framesのmel最大成分の平均を基準として69frames以降の減衰を補正します。補正上限4自然対数単位、目標は基準−0.5。SP/子音/短い母音と無声f0は除外します。学習重みは変えません。音響出力への補正試作であり再学習ではありません。
 
 6秒aの同一推論内raw/補正をボコーダー合成して比較。最後200msのRMS 0.00234→0.09721、有限値・非クリップ。0.8秒aと長い子音kはrawとbit一致。長いeも対象となることを検証。音色・呼吸・終端の自然さと他フレーズへの影響は未確認のため正式版へ未採用。
+
+2026-10-09: 本人は減衰出力の増幅試作を不採用と指定。登録を解除し、long_vowel_patch.pyは不採用の実験履歴として保持します。正式版には含みません。
+
+代替試作 `sustain_vowel_demo.py BANK OUTPUT.wav --seconds 20 --midi 69` は短母音の安定したmel区間を往復補間し、指定長のF0とともにボコーダーへ渡します。音響出力を持ち上げません。20秒A4の序盤/終盤持続RMS 0.16891/0.16881、peak0.44573。連続時間長を指定可能ですが、メモリ等の上限はあります。任意の楽曲・音素接続やOpenUtauへの組み込みは未実装、音域外の声質保証なし。本人の音色評価待ち。
