@@ -1,0 +1,7 @@
+name: 花園トキネDS v1.1.1
+singer_type: diffsinger
+text_file_encoding: utf-8
+default_phonemizer: OpenUtau.Core.DiffSinger.DiffSingerJapanesePhonemizer
+image: TOKINE_VER1.png
+author: 花園トキネ
+web: https://github.com/sotwat/hanazono-tokine-ds
