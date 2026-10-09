@@ -41,3 +41,29 @@ Candidate acoustic SHA256:
 The learned weights are unchanged. The rule assumes the spectrum 12 frames
 inside an eligible vowel is usable; broader listening remains necessary before
 promoting this local candidate to a public release.
+
+## rc.2: continuous transition
+
+The user reported that rc.1 still sounded abrupt at the vowel boundary.
+`smooth_vowel_connections.py` adds a smoothstep interpolation of log-mel spectra
+from 8 frames before to 8 frames after eligible boundaries (about 186 ms total).
+Both vowels must have at least 40 frames. Endpoints are taken from rc.1's output;
+values outside the 15 interior frames are bit-identical to that output.
+This replaces the hard onset switch within that window, without moving notes,
+changing F0 or adding waveform gain. All vowel pairs use the same rule.
+
+```sh
+python tools/smooth_vowel_connections.py connected.onnx smooth.onnx
+python tools/check_smooth_connections.py connected.onnx smooth.onnx checks.json
+```
+
+62 shared-input cases passed, including exact preservation outside the window.
+OpenUtau AU rendered the actual test passage. At its boundary, successive-frame
+mel distances in the two acoustic branches decreased from 8.064/20.164 to
+1.254/0.749. The cached candidate's 17-frame transition matched the smoothstep
+formula exactly. Output remained 295424 samples at 44100 Hz, finite, peak0.55545.
+These separate native renders include diffusion variation; perceptual
+smoothness still needs user evaluation. No public release has been replaced.
+
+rc.2 acoustic SHA256:
+`e83d3211201647e99f8a00f2999ede4f8d4457a2a04d874521b413d3122f82b2`
