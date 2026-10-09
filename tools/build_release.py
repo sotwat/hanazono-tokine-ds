@@ -29,6 +29,10 @@ def build(base, approved, output, version, readme):
     (bank/'README.md').write_text(readme.read_text())
     manifest=json.loads((bank/'version.json').read_text())
     manifest.update(version=version,status='stable',approved_model=json.loads((approved/'LOCAL_REVISION.json').read_text())['version'],vowel_morph_frames_before=8,vowel_morph_frames_after=8)
+    if version == '1.2.2':
+        manifest.update(sustain_timbre='constant-five-point-mean',
+                        fricative_morph_frames_before=8,fricative_morph_frames_after=2,
+                        fricative_morph_phones=['f','h','s','sh','z'])
     manifest['files']={str(f.relative_to(bank)):hashlib.sha256(f.read_bytes()).hexdigest()
                        for f in sorted(bank.rglob('*')) if f.is_file() and f.name!='version.json'}
     (bank/'version.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2))
