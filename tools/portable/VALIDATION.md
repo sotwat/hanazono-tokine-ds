@@ -1,4 +1,6 @@
-# v1.2.0-rc.2 verification (2026-10-10)
+# v1.2.0 verification (2026-10-10)
+
+Approved local rc.4 is the release source. WORLD numerical tests below originate from rc.1; subsequent acoustic sustain changes were verified with the coverage test and native OpenUtau AU phrase rendering documented in ../SUSTAIN_RELEASE.md. The owner accepted the rc.4 comparison and explicitly requested distribution. This is not approval of every possible lyric or environment.
 
 - macOS Apple Silicon; ONNX Runtime CPU 1.23.2: all eight packaged models load.
 - Standard ONNX domains only; IR 10 / opset 18 for the modified pair.
@@ -12,4 +14,4 @@
 - Earlier pyworld vs eager diffsptk parameter comparison on one donor: median absolute log spectral-envelope error 0.0751 and median absolute aperiodicity difference 0.00412. This is not a perceptual equivalence claim.
 - The acoustic wrapper sustains 40-frame vowels and N/m/n/f/h/s/sh/z, with duration-adaptive source windows. 48-frame /a/ and /o/, N and /s/ change only eligible mel frames; 30-frame /a/ and stop /d/ remain bit-identical to raw mel. Paired vocoder remains finite, including high pitch. Actual UST phrase excerpts are verified in the local sustain-coverage record, not included here.
 
-Unverified: Windows/Linux, other editors, GPU providers, fresh ZIP installation through the wizard, owner listening approval of the portable implementation and new sustain update. Distribution is a prerelease, not a replacement of the stable release.
+Unverified: Windows/Linux, other editors, GPU providers, fresh ZIP installation through the wizard. Release packaging compares all model graphs/tensors with the approved local rc.4; only descriptive ONNX metadata may be stripped.
