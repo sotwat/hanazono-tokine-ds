@@ -5,8 +5,9 @@ OpenUtau renderer. No change is made to the installed singer by this command.
 
 It generates a donor with the existing Tokine DS acoustic model in A3–C5,
 then extracts WORLD spectral envelope and aperiodicity. WORLD synthesis uses
-the requested F0 with those donor characteristics. Only F5+ and F#3- samples
-replace the original DS output, with 20 ms inward crossfades. In-range samples
+the requested F0 with those donor characteristics. The high mix rises smoothly from D5 (0%) to F5 (100%):
+D#5 is about 26% and E5 about 74%. F#3- remains the low target.
+Equal-power mixing and 20 ms inward edge fades are used. Unprocessed samples
 are exactly preserved within each run. Selection currently follows continuous
 F0, not the editor's discrete note names; vibrato across a threshold can switch
 branches and needs listening review before production integration.
@@ -37,7 +38,23 @@ Outputs include raw-float original, donor, WORLD, hybrid WAVs, parameter NPZ
 and report JSON. Audition normalization must be kept separate from synthesis.
 Source song inputs and generated song audio are deliberately not in this repo.
 
-## Verification, 2026-10-10
+## Transition revision, 2026-10-10
+
+The user liked the high-register sound but found the F5 switch too abrupt.
+The revised smoothstep pitch weight starts at D5 and reaches one at F5.
+Equal-power waveform mixing avoids the expected power dip of a linear mix
+between independent phases; perceptual continuity still needs listening review.
+The exact same original/WORLD waveforms were reused for the high A/B comparison.
+Zero-weight samples remain bit-identical to the baseline; fully wet samples
+remain bit-identical to WORLD. The weight is clipped to [0,1] to avoid
+floating-point overshoot in square roots.
+
+Low comparisons now use a phrase at E3–G#3 and a five-note a scale:
+E3, F3, F#3, G3, A3. Audition copies of low A/B pairs are RMS matched;
+raw synthesis files retain their original levels. This revision is offline
+only and has not changed the production OpenUtau singer.
+
+## Initial verification, 2026-10-10
 
 On interior vowel frames, WORLD Harvest estimated:
 

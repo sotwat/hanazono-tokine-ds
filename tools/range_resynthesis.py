@@ -1,7 +1,7 @@
 """Experimental DS donor + WORLD pitch resynthesis, independent of VOCALOID.
 
 Input NPZ contains tokens, durations, f0 (or dbg_ prefixed equivalents).
-The donor uses A3..C5; only target F5+ and F#3- samples are replaced.
+The donor uses A3..C5. High-register blending ramps from D5 to F5.
 """
 from pathlib import Path
 import argparse
@@ -33,16 +33,28 @@ def raw_vocoder(bank):
     model.graph.output.append(onnx.helper.make_tensor_value_info(name, onnx.TensorProto.FLOAT, [1, 'samples']))
     return session(model.SerializeToString()), name
 
-def edge_weight(mask, samples, fade_ms=20):
-    # Replacements never leak to the original, in-range waveform.
-    expanded = np.repeat(mask, HOP)[:samples].astype(float)
-    if len(expanded) < samples:
-        expanded = np.pad(expanded, (0, samples-len(expanded)))
+def register_weight(f0):
+    f0 = np.asarray(f0, dtype=float)
+    midi = 69 + 12*np.log2(np.maximum(f0, 1)/440)
+    u = np.clip((midi-74)/3, 0, 1)
+    high = np.where(f0 >= hz(77)-.001, 1.0, u*u*(3-2*u))
+    low = ((f0 > 0) & (f0 <= hz(54)+.001)).astype(float)
+    return np.where(f0 > 0, np.maximum(high, low), 0)
+
+def edge_weight(frame_weight, samples, fade_ms=20):
+    frame_weight = np.asarray(frame_weight, dtype=float)
+    expanded = np.interp(np.arange(samples)/HOP, np.arange(len(frame_weight)), frame_weight)
+    active = np.repeat(frame_weight > 1e-8, HOP)[:samples].astype(float)
+    if len(active) < samples:
+        active = np.pad(active, (0, samples-len(active)))
     length = round(SR * fade_ms / 1000)
-    # A symmetric inward fade, with no modification outside the mask.
-    forward = np.convolve(expanded, np.ones(length)/length, mode='full')[:samples]
-    backward = np.convolve(expanded[::-1], np.ones(length)/length, mode='full')[:samples][::-1]
-    return expanded * np.minimum(forward, backward)
+    forward = np.convolve(active, np.ones(length)/length, mode='full')[:samples]
+    backward = np.convolve(active[::-1], np.ones(length)/length, mode='full')[:samples][::-1]
+    return np.clip(expanded * active * np.minimum(forward, backward), 0, 1)
+
+def blend_waveforms(baseline, world, weight):
+    mixed = np.sqrt(1-weight)*baseline + np.sqrt(weight)*world
+    return np.where(weight <= 0, baseline, np.where(weight >= 1, world, mixed))
 
 def render(bank, inputs, output):
     output.mkdir(parents=True, exist_ok=False)
@@ -72,9 +84,8 @@ def render(bank, inputs, output):
     ap = pw.d4c(donor, source64, times, SR, fft_size=2048)
     world = pw.synthesize(np.ascontiguousarray(target[0], dtype=np.float64), spectral, ap, SR, PERIOD)
     world = np.pad(world, (0, max(0, len(baseline)-len(world))))[:len(baseline)]
-    mask = (target[0] > 0) & ((target[0] >= hz(77)-.001) | (target[0] <= hz(54)+.001))
-    weight = edge_weight(mask, len(baseline))
-    hybrid = baseline + weight*(world-baseline)
+    weight = edge_weight(register_weight(target[0]), len(baseline))
+    hybrid = blend_waveforms(baseline, world, weight)
     assert np.array_equal(hybrid[weight == 0], baseline[weight == 0])
     for x in [baseline, donor, world, hybrid]:
         assert np.isfinite(x).all()
@@ -84,7 +95,7 @@ def render(bank, inputs, output):
     np.savez(output/'parameters.npz', target_f0=target, source_f0=source, weight=weight,
              spectral=spectral, aperiodicity=ap)
     report = {'sample_rate':SR,'samples':len(baseline),'donor_midi_range':[57,72],
-              'target_high_midi':77,'target_low_midi':54,'unprocessed_samples_identical':True,
+              'high_blend_start_midi':74,'high_blend_full_midi':77,'target_low_midi':54,'unprocessed_samples_identical':True,
               'replacement_samples':int(np.count_nonzero(weight)),
               'peaks':{k:float(abs(x).max()) for k,x in [('original',baseline),('hybrid',hybrid)]},
               'processing':'WORLD spectral envelope and aperiodicity retained; target F0 substituted; no EQ or gain',
