@@ -1,6 +1,6 @@
 # 花園トキネDS
 
-OpenUtauで使える日本語のDiffSinger歌声音源です。本人歌唱をもとにした配布版です。v1.1.0では発音の安定化を目的に音響モデル構成と合成設定を更新しました。
+OpenUtauで使える日本語のDiffSinger歌声音源です。本人歌唱をもとにした配布版です。v1.1.1では発音の安定化を目的に音響モデル構成と合成設定を更新しました。
 
 ## 開発状況
 
@@ -8,7 +8,7 @@ OpenUtauで使える日本語のDiffSinger歌声音源です。本人歌唱を�
 | --- | --- |
 | 修正版の歌唱生成 | OpenUtauで通常域・高音域を確認済み |
 | 発音の安定化 | 音響モデル構成・合成深さを更新 |
-| 配布版 | v1.1.0／発音改善版 |
+| 配布版 | v1.1.1／発音改善版 |
 | Windows・Linuxでの動作 | 未検証 |
 
 ## ダウンロード
@@ -48,7 +48,7 @@ OpenUtauで使える日本語のDiffSinger歌声音源です。本人歌唱を�
 
 - 声・キャラクター：花園トキネ
 - 補助学習データ：NIT SONG070 F001／HTS Working Group、Nagoya Institute of Technology（CC BY 3.0）。`NIT-SONG070-COPYING.txt` を同梱。
-- ボコーダー：OpenVPI Community／PC-NSF-HiFiGAN 2025.02（CC BY-NC-SA 4.0）。重みは無改変。
+- ボコーダー：OpenVPI Community／PC-NSF-HiFiGAN 2025.02（CC BY-NC-SA 4.0）。元の学習重みは維持し、出力に音域別補正を追加。
 - サムライハートの参照UST：968103
 - ノーダウトの参照UST：いろあい
 - staple stableの参照UST：ivyleaf33 (Vyx Le)。原配布の非商用条件を尊重します。
@@ -57,3 +57,7 @@ OpenUtauで使える日本語のDiffSinger歌声音源です。本人歌唱を�
 - 対応アプリ：[OpenUtau](https://github.com/openutau/OpenUtau)
 
 歌唱録音、歌詞、UST／VSQX、学習用データ、学習チェックポイント、比較譜面・音声は同梱していません。
+
+## v1.1.1の音域別補正
+
+F5はEQのみ、F#5以上はEQ・+3 dB・弱いサチュレーションを適用します。EQは基音付近+4 dB、第2倍音付近+2.5 dB、5 kHz高域棚−2.5 dB。サチュレーションはdrive 2・混合25%。E5以下は変更しません。ピーク保護により大振幅時の増幅量は抑えられます。判定は合成F0を使います。補正ONNXの実行を検証済みです。今回の配布ZIPによる新規環境での歌唱は未検証です。
