@@ -1,7 +1,7 @@
 # Adjacent sustained vowels (local v1.2.1-rc.1)
 
 `connect_sustained_vowels.py` extends the v1.2.0 / rc.4 acoustic ONNX wrapper.
-It is a local audition candidate; the public release remains v1.2.0.
+The rc.2 refinement below was approved for the v1.2.1 public release.
 
 - For a sustained vowel followed directly by another vowel, return to the raw
   spectrum over the last 2 frames, instead of 6.
@@ -29,7 +29,7 @@ At the affected connection, one 50 ms RMS window changed from 0.02596 to 0.15475
 and the following window from 0.06702 to 0.13308. Candidate peak was 0.51746,
 with finite samples and unchanged output length. Independent diffusion draws
 are included in these measurements; they are not a controlled effect estimate
-or a subjective naturalness assessment.
+or a standalone subjective naturalness assessment.
 
 Cache mapping was verified using the candidate's unique equality of onset and
 local-frame-12 mel, combined with serialized renderer writes. File creation
@@ -63,7 +63,7 @@ mel distances in the two acoustic branches decreased from 8.064/20.164 to
 1.254/0.749. The cached candidate's 17-frame transition matched the smoothstep
 formula exactly. Output remained 295424 samples at 44100 Hz, finite, peak0.55545.
 These separate native renders include diffusion variation; perceptual
-smoothness still needs user evaluation. No public release has been replaced.
+smoothness was subsequently approved by the user for publication as v1.2.1.
 
 rc.2 acoustic SHA256:
 `e83d3211201647e99f8a00f2999ede4f8d4457a2a04d874521b413d3122f82b2`

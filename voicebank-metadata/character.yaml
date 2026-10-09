@@ -1,4 +1,4 @@
-name: 花園トキネDS v1.1.1
+name: 花園トキネDS v1.2.1
 singer_type: diffsinger
 text_file_encoding: utf-8
 default_phonemizer: OpenUtau.Core.DiffSinger.DiffSingerJapanesePhonemizer

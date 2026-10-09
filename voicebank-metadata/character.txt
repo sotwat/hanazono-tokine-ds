@@ -1,3 +1,3 @@
-name=花園トキネDS v1.1.1
+name=花園トキネDS v1.2.1
 author=花園トキネ
 web=https://github.com/sotwat/hanazono-tokine-ds
