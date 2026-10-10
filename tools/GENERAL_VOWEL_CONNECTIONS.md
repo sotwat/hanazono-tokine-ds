@@ -80,4 +80,5 @@ Independent diffusion draws are included. These measurements establish
 reproduction and improvements in the tested phrases, not perceptual quality
 for every song. Listening evaluation remains necessary.
 
-The local version is 1.2.3-rc.3. Public v1.2.2 is unchanged.
+This repair was published as v1.2.3. The subsequent long-note duration and
+join work is documented in LONG_NOTE_CONNECTIONS.md.
