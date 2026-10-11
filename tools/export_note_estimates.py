@@ -45,7 +45,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('input', type=Path)
     parser.add_argument('output', type=Path)
-    parser.add_argument('--tempo', type=float, default=192)
+    parser.add_argument('--tempo', type=float, required=True)
     parser.add_argument('--name', default='Transcription draft')
     args = parser.parse_args()
     print(json.dumps(export(json.loads(args.input.read_text()), args.output,
