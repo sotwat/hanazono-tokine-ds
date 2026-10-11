@@ -1,5 +1,7 @@
 # Isolated vowel onset smoothing
 
+Rejected on 2026-10-12: the user still heard a raspy noise at the instant of i onset. This smoothing was removed from the installed bank. Numerical spectral smoothing did not establish a perceptual repair. See ONSET_PERIODICITY.md for the replacement trial.
+
 The local acoustic wrapper smooths the first three frames of a vowel following SP. It handles a/e/i/o/u equally, without lyric or song matching. Only immediate neighbors inside the same phone and within 30 cents participate. Half of the normalized log-mel shape is mixed with the compatible neighbors; the original per-frame mean linear-mel energy is restored. Frames without a compatible neighbor remain exactly unchanged. F0, durations, training weights, WORLD processing and consonant timing are unchanged.
 
 Reproduce with the DiffSinger Python environment:
