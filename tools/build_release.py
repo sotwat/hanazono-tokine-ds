@@ -22,17 +22,26 @@ def build(base, approved, output, version, readme):
         onnx.checker.check_model(str(target))
         ort.InferenceSession(str(target),opts,providers=['CPUExecutionProvider'])
         checks.append(str(relative))
+    for source in approved.rglob('*.yaml'):
+        relative=source.relative_to(approved)
+        if relative != Path('character.yaml'):
+            shutil.copy2(source, bank/relative)
+    (bank/'LOCAL_REVISION.json').unlink(missing_ok=True)
     name='花園トキネDS v'+version
     meta=yaml.safe_load((bank/'character.yaml').read_text());meta['name']=name
     (bank/'character.yaml').write_text(yaml.safe_dump(meta,allow_unicode=True,sort_keys=False))
     (bank/'character.txt').write_text('name='+name+'\nauthor=花園トキネ\n')
     (bank/'README.md').write_text(readme.read_text())
-    manifest=json.loads((bank/'version.json').read_text())
-    manifest.update(version=version,status='stable',approved_model=json.loads((approved/'LOCAL_REVISION.json').read_text())['version'],vowel_morph_frames_before=8,vowel_morph_frames_after=8)
+    manifest=json.loads((approved/'version.json').read_text())
+    manifest.update(version=version,status='stable',approved_model=json.loads((approved/'LOCAL_REVISION.json').read_text())['version'])
     if version == '1.2.2':
         manifest.update(sustain_timbre='constant-five-point-mean',
                         fricative_morph_frames_before=8,fricative_morph_frames_after=2,
                         fricative_morph_phones=['f','h','s','sh','z'])
+    if version == '1.2.4':
+        for key in ['vowel_morph_frames_before','vowel_morph_frames_after','fricative_morph_frames_before','fricative_morph_frames_after','fricative_morph_phones']:
+            manifest.pop(key, None)
+        assert yaml.safe_load((bank/'dsdur/dsconfig.yaml').read_text())['hidden_size'] == 259
     manifest['files']={str(f.relative_to(bank)):hashlib.sha256(f.read_bytes()).hexdigest()
                        for f in sorted(bank.rglob('*')) if f.is_file() and f.name!='version.json'}
     (bank/'version.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2))
