@@ -9,7 +9,7 @@ The original Leia autosave was exported as a full track through OpenUtau AU. Mat
 - After a phone, smoothstep release over at most 25 ms, capped at half the SP length.
 - Before a phone, permit a smooth anticipation over at most 5 ms, capped at 15% of the SP length.
 - Leading padding has no outgoing release. Trailing padding has no upcoming attack. Consecutive SP segments do not restart a release.
-- Non-SP samples bypass exactly. AP/breath phones are not SP. Score, pitch, phoneme duration, learned weights and the previous sustain/WORLD processing are retained.
+- Non-SP token samples bypass exactly. This bank maps AP and SP to the same token ID, so the gate cannot distinguish AP independently. Score, pitch, phoneme duration, learned weights and the previous sustain/WORLD processing are retained.
 
 The acoustic and vocoder files must be installed as a pair. Other hosts are unverified. The user confirmed on 2026-10-12 that the reported i-onset rasp was fixed. This processing is retained in the local bank; no new public release has been published.
 
