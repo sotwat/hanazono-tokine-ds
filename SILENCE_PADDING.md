@@ -1,0 +1,21 @@
+# Silence segment waveform gating
+
+The user rejected both isolated i-onset trials on 2026-10-12: the reported rasp occurs earlier than their exported comparisons. Those fixtures omitted the preceding phrase. The cycle averaging and vowel attack filter were withdrawn.
+
+The original Leia autosave was exported as a full track through OpenUtau AU. Matching the native phrase WAVs against the track located the previous phrase at 4.736712 seconds and the following phrase at 6.854467 seconds. Before the i note at 6.947368 seconds, most of the measured residual comes from the previous phrase's SP release/padding, which the former pre-vowel filter did not cover. This identifies the source of a signal; it does not by itself establish that it is exactly the user-reported rasp.
+
+`tools/portable/silence_padding.py` appends a control plane to the existing two mel planes. Each SP segment records frame bounds and whether a real phone borders it. The paired vocoder applies a waveform gate only inside SP:
+
+- After a phone, smoothstep release over at most 25 ms, capped at half the SP length.
+- Before a phone, permit a smooth anticipation over at most 5 ms, capped at 15% of the SP length.
+- Leading padding has no outgoing release. Trailing padding has no upcoming attack. Consecutive SP segments do not restart a release.
+- Non-SP samples bypass exactly. AP/breath phones are not SP. Score, pitch, phoneme duration, learned weights and the previous sustain/WORLD processing are retained.
+
+The acoustic and vocoder files must be installed as a pair. Other hosts are unverified. This is a local listening trial, not a release or a confirmed perceptual repair.
+
+```sh
+python tools/portable/silence_padding.py baseline-acoustic.onnx baseline-vocoder.onnx output
+python tools/portable/check_silence_padding.py output/silence-filter.onnx
+```
+
+120 boundary/length/flag cases check finite output, no peak increase, exact non-SP bypass and fully silent unconnected padding. Private source audio, native tensors and models remain in the local `DiffSinger/artifacts/tokine-onset-periodicity/original-context` directory.

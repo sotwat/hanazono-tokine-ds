@@ -1,3 +1,5 @@
+> Withdrawn on 2026-10-12 after the user reported no improvement and an earlier noise location. The isolated fixture omitted the preceding phrase. See SILENCE_PADDING.md for the replacement investigation.
+
 # Isolated vowel attack trial
 
 On 2026-10-12 the user rejected log-mel onset smoothing: a raspy noise remained at the instant of i onset. That smoothing was removed. The reported cause is still not conclusively identified.
