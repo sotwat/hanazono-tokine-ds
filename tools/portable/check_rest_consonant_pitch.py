@@ -10,7 +10,7 @@ for n in reversed(m.graph.node):
     if any(x in needed and x not in {'tokens','durations','f0'} for x in n.output):nodes.append(n);needed.update(n.input)
 nodes.reverse();init=[x for x in m.graph.initializer if any(x.name in n.input for n in nodes)]
 g=onnx.helper.make_graph(nodes,'pitch-condition-only',[onnx.helper.make_tensor_value_info('tokens',7,[1,'N']),onnx.helper.make_tensor_value_info('durations',7,[1,'N']),onnx.helper.make_tensor_value_info('f0',1,[1,'F'])],[onnx.helper.make_tensor_value_info('rp_normalized',1,[1,'F'])],init);q=onnx.helper.make_model(g,opset_imports=m.opset_import,ir_version=m.ir_version);opts=ort.SessionOptions();opts.intra_op_num_threads=1;s=ort.InferenceSession(q.SerializeToString(),opts)
-unvoiced=[6,7,10,12,13,16,17,21,24,25,26,27];cases=0
+unvoiced=[4,5,6,7,8,10,11,12,13,15,16,17,18,19,21,22,23,24,25,26,27,29,30,31];cases=0
 for phone in unvoiced:
     for vowel in [3,9,14,20,28]:
         for duration in [1,2,4,8,16]:
@@ -24,4 +24,4 @@ for phone in unvoiced:
                     assert np.array_equal(result,expected)
                     assert np.isfinite(result).all()
                     cases+=1
-print(json.dumps({'cases':cases,'exact_voiced_and_connected_bypass':True,'next_vowel_reference':True}))
+print(json.dumps({'cases':cases,'exact_vowel_and_connected_bypass':True,'next_vowel_reference':True}))

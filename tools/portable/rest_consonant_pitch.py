@@ -1,4 +1,4 @@
-"""Use the next vowel's onset F0 for unvoiced consonants following silence."""
+"""Use the next vowel's onset F0 for consonants following silence."""
 import argparse
 from pathlib import Path
 import numpy as np
@@ -9,7 +9,7 @@ p=argparse.ArgumentParser();p.add_argument('acoustic',type=Path);p.add_argument(
 m=onnx.load(args.acoustic);prefix=[]
 def c(name,value,dtype=np.int64):m.graph.initializer.append(nh.from_array(np.array(value,dtype),'rp_'+name))
 def n(op,ins,name,**kw):prefix.append(h.make_node(op,ins,['rp_'+name],**kw))
-for name,value in [('axis0',[0]),('axis1',[1]),('axis2',[2]),('zero',0),('one',1),('minusone',-1),('unvoiced',[6,7,10,12,13,16,17,21,24,25,26,27]),('vowels',[3,9,14,20,28]),('begin',[0]),('end',[1]),('first3',[3]),('control_index',[2]),('f0_pad',[0,0,3,0,0,124])]:c(name,value)
+for name,value in [('axis0',[0]),('axis1',[1]),('axis2',[2]),('zero',0),('one',1),('minusone',-1),('unvoiced',[4,5,6,7,8,10,11,12,13,15,16,17,18,19,21,22,23,24,25,26,27,29,30,31]),('vowels',[3,9,14,20,28]),('begin',[0]),('end',[1]),('first3',[3]),('control_index',[2]),('f0_pad',[0,0,3,0,0,124])]:c(name,value)
 c('zerof',0.,np.float32)
 n('Squeeze',['tokens','rp_axis0'],'tokens');n('Squeeze',['durations','rp_axis0'],'durations');n('Shape',['rp_tokens'],'shape');n('Squeeze',['rp_shape','rp_axis0'],'count');n('Range',['rp_zero','rp_count','rp_one'],'index');n('Sub',['rp_count','rp_one'],'last');n('CumSum',['rp_durations','rp_zero'],'ends');n('Sub',['rp_ends','rp_durations'],'starts')
 n('Unsqueeze',['rp_tokens','rp_axis1'],'tokens2');n('Equal',['rp_tokens2','rp_unvoiced'],'matches');n('Cast',['rp_matches'],'matchesf',to=onnx.TensorProto.FLOAT);n('ReduceMax',['rp_matchesf','rp_axis1'],'anyf',keepdims=0);n('Greater',['rp_anyf','rp_zerof'],'unvoiced_mask');n('Not',['rp_unvoiced_mask'],'other')
