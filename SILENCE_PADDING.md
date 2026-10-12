@@ -11,7 +11,7 @@ The original Leia autosave was exported as a full track through OpenUtau AU. Mat
 - Leading padding has no outgoing release. Trailing padding has no upcoming attack. Consecutive SP segments do not restart a release.
 - Non-SP samples bypass exactly. AP/breath phones are not SP. Score, pitch, phoneme duration, learned weights and the previous sustain/WORLD processing are retained.
 
-The acoustic and vocoder files must be installed as a pair. Other hosts are unverified. This is a local listening trial, not a release or a confirmed perceptual repair.
+The acoustic and vocoder files must be installed as a pair. Other hosts are unverified. The user confirmed on 2026-10-12 that the reported i-onset rasp was fixed. This processing is retained in the local bank; no new public release has been published.
 
 ```sh
 python tools/portable/silence_padding.py baseline-acoustic.onnx baseline-vocoder.onnx output
@@ -20,4 +20,4 @@ python tools/portable/check_silence_padding.py output/silence-filter.onnx
 
 120 boundary/length/flag cases check finite output, no peak increase, exact non-SP bypass and fully silent unconnected padding. Private source audio, native tensors and models remain in the local `DiffSinger/artifacts/tokine-onset-periodicity/original-context` directory.
 
-Native full-track export verification: 207.409138 seconds, 44.1 kHz mono. In the 6.84–6.93 second pre-i interval, waveform RMS fell from 0.005719 to zero (all samples zero). The 4.5–9.5 second comparison includes the previous phrase and retains the original score. Native 98/192-frame control tensors also show silent SP interiors. Perceptual resolution remains unconfirmed; the earlier high phrase already contains PCM-limit samples, so this does not establish that all distortion is fixed.
+Native full-track export verification: 207.409138 seconds, 44.1 kHz mono. In the 6.84–6.93 second pre-i interval, waveform RMS fell from 0.005719 to zero (all samples zero). The 4.5–9.5 second comparison includes the previous phrase and retains the original score. Native 98/192-frame control tensors also show silent SP interiors. The user confirmed resolution of the reported rasp; the earlier high phrase already contains PCM-limit samples, so this does not establish that all distortion is fixed.
