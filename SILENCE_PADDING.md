@@ -19,3 +19,5 @@ python tools/portable/check_silence_padding.py output/silence-filter.onnx
 ```
 
 120 boundary/length/flag cases check finite output, no peak increase, exact non-SP bypass and fully silent unconnected padding. Private source audio, native tensors and models remain in the local `DiffSinger/artifacts/tokine-onset-periodicity/original-context` directory.
+
+Native full-track export verification: 207.409138 seconds, 44.1 kHz mono. In the 6.84–6.93 second pre-i interval, waveform RMS fell from 0.005719 to zero (all samples zero). The 4.5–9.5 second comparison includes the previous phrase and retains the original score. Native 98/192-frame control tensors also show silent SP interiors. Perceptual resolution remains unconfirmed; the earlier high phrase already contains PCM-limit samples, so this does not establish that all distortion is fixed.
