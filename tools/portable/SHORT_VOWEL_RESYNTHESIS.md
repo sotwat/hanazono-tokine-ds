@@ -1,6 +1,6 @@
-# Experimental short-vowel resynthesis
+# Short-vowel resynthesis
 
-This experiment replaces fixed-spectrum sustain with a second neural prediction at a shorter vowel duration. It has not received perceptual acceptance and is not installed or approved for distribution. Do not interpret non-clipping, timing checks or a noise metric as evidence that the timbre and distortion requirements are met.
+This replaces fixed-spectrum sustain with a second neural prediction at a shorter vowel duration. On 2026-10-20 the user preferred the full-context trial and explicitly requested installation in the production voicebank. The exact candidate was installed locally; the public Release has not been updated. This listening result does not establish quality across every song or pitch. Do not interpret non-clipping, timing checks or a noise metric as proof of perceptual quality.
 
 ```sh
 python tools/portable/short_vowel_resynthesis.py acoustic.onnx candidate
@@ -13,4 +13,4 @@ The score, external F0, duration model, trained weights, vocoder and waveform pr
 
 Checks cover 96 length/phone/pitch conditions, zero-length phones, interpolation endpoints and exact bypass. Full-context rendering through the installed OpenUtau renderer retains the target phrase's phone JSON and 130560 samples at 44.1 kHz. Private test scores, weights, fixtures and audio remain outside this repository.
 
-The previous cycle-averaging experiment was rejected because it changed the voice at the sustained vowel. This approach adds neither cycle averaging nor vibrato, and does not amplify the decayed output. Compare full-context current and trial audio before deciding whether to install it.
+The previous cycle-averaging experiment was rejected because it changed the voice at the sustained vowel. This approach adds neither cycle averaging nor vibrato, and does not amplify the decayed output. Retain full-context listening comparisons when changing this method.
