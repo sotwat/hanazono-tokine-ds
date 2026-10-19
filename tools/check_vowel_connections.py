@@ -9,9 +9,10 @@ import onnxruntime as ort
 from onnx import TensorProto as T, helper as h
 
 
-def wrapper(path, prefix):
+def wrapper(path, prefix, output=None):
     model = onnx.load(path)
-    needed = {prefix + 'mel'}
+    output = output or prefix + 'mel'
+    needed = {output}
     selected = []
     boundaries = {'tokens', 'durations', 'f0', 'source_f0', prefix + 'su_raw'}
     for node in reversed(model.graph.node):
@@ -28,7 +29,7 @@ def wrapper(path, prefix):
             if value == 'source_f0':
                 node.input[i] = 'f0'
     graph = h.make_graph(nodes, 'sustain-only', inputs,
-        [h.make_tensor_value_info(prefix + 'mel', T.FLOAT, [1, 'F', 128])],
+        [h.make_tensor_value_info(output, T.FLOAT, [1, 'F', 128])],
         [v for v in model.graph.initializer if any(v.name in n.input for n in nodes)])
     result = h.make_model(graph, opset_imports=model.opset_import)
     result.ir_version = model.ir_version
