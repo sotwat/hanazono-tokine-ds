@@ -1,0 +1,281 @@
+{
+  "method": "actual OpenUtau AU native phrase WAV payloads concatenated, 0.5s silence between phrases; not a full-score menu export",
+  "previous_fixture": "native-comparison.ustx (corrected phonetic hint)",
+  "updated_fixture": "native-updated.ustx",
+  "phrases": 16,
+  "seconds": 54.64888888888888,
+  "rows": [
+    {
+      "index": 1,
+      "start_sec": 0,
+      "seconds": 2.4961451247165534,
+      "従来版": {
+        "cache": "ds-115edd44b4cb30cd-depth0.10-steps20.wav",
+        "sha256": "c4673771d88589caf3aa10c5fee86597b01cc54bc807af565e40ee6918a4a79a",
+        "peak": 0.3551025390625,
+        "rms": 0.07231701338993772
+      },
+      "更新版": {
+        "cache": "ds-b20e9ffb762bb913-depth0.10-steps20.wav",
+        "sha256": "6079845bcf01ad34254e2a3fb644178ea5826d201654e055e4f664e67d7d9874",
+        "peak": 0.286773681640625,
+        "rms": 0.07171242281019179
+      }
+    },
+    {
+      "index": 2,
+      "start_sec": 2.9961451247165534,
+      "seconds": 2.345215419501134,
+      "従来版": {
+        "cache": "ds-9579f00bea224b76-depth0.10-steps20.wav",
+        "sha256": "6ef57a1ea6812a3f6cac9e6f70941f1f2dd31be17479c28bde9c89f2e2a1ed79",
+        "peak": 0.29864501953125,
+        "rms": 0.08796290687143928
+      },
+      "更新版": {
+        "cache": "ds-41b3428f9cc6160d-depth0.10-steps20.wav",
+        "sha256": "9ba26b5429f5adafe5d690e79cb3bc05e59ca47fcba52cd51fa116342d1521d7",
+        "peak": 0.37689208984375,
+        "rms": 0.08868813413107472
+      }
+    },
+    {
+      "index": 3,
+      "start_sec": 5.841360544217688,
+      "seconds": 3.4713832199546486,
+      "従来版": {
+        "cache": "ds-ff8443a9dfbfb639-depth0.10-steps20.wav",
+        "sha256": "9f8dc36812732518bd92e9e6cc01fbc46d9c2326b2ce28488832b7e01ec8d141",
+        "peak": 0.509002685546875,
+        "rms": 0.11739003986354968
+      },
+      "更新版": {
+        "cache": "ds-de3c8f24ad55703c-depth0.10-steps20.wav",
+        "sha256": "7bbed04ef7c41e0171d497c6ffe30c27e1fc11b415e3e1dceeb4952181c8c66a",
+        "peak": 0.48712158203125,
+        "rms": 0.11332677086350558
+      }
+    },
+    {
+      "index": 4,
+      "start_sec": 9.812743764172335,
+      "seconds": 2.5193650793650795,
+      "従来版": {
+        "cache": "ds-c6e752f2a101ae94-depth0.10-steps20.wav",
+        "sha256": "0df12a18bfbe3c812ff0d858a8bf635b8c755e3ae6a3f584286028504f4241e1",
+        "peak": 0.35308837890625,
+        "rms": 0.08116860130695057
+      },
+      "更新版": {
+        "cache": "ds-667ed501c0239c63-depth0.10-steps20.wav",
+        "sha256": "dfa4eb133d9b77bfe8b3909f8b27cb2dad2ae3858b94b0165b9b3ff33f09f23b",
+        "peak": 0.359588623046875,
+        "rms": 0.08000475057352811
+      }
+    },
+    {
+      "index": 5,
+      "start_sec": 12.832108843537416,
+      "seconds": 5.305759637188209,
+      "従来版": {
+        "cache": "ds-0572521acd8836bd-depth0.10-steps20.wav",
+        "sha256": "459899b9c72f704c2d3adf3101491a88f18394924349735f9e9b9bc8b2ade5b8",
+        "peak": 0.351043701171875,
+        "rms": 0.08954042685152483
+      },
+      "更新版": {
+        "cache": "ds-0f12da903295e21a-depth0.10-steps20.wav",
+        "sha256": "4d67f999154b08aceabd4b8418fef607e5ae2859b7127d1c8203c4a1b94c1a29",
+        "peak": 0.38189697265625,
+        "rms": 0.08913493611209805
+      }
+    },
+    {
+      "index": 6,
+      "start_sec": 18.637868480725626,
+      "seconds": 1.4048072562358276,
+      "従来版": {
+        "cache": "ds-e71b10c1da275e86-depth0.10-steps20.wav",
+        "sha256": "edcfb546dd88bca21e5826279afc0ecb2c3c89064a715ba5d07bff7b4829c0b4",
+        "peak": 0.387115478515625,
+        "rms": 0.07574271272035785
+      },
+      "更新版": {
+        "cache": "ds-bc37ad7f145931cf-depth0.10-steps20.wav",
+        "sha256": "68cb73d360abec92e69e864de9090716f22cc600fbb9e7f4dcf3cd00d5300011",
+        "peak": 0.316680908203125,
+        "rms": 0.07344536681770926
+      }
+    },
+    {
+      "index": 7,
+      "start_sec": 20.542675736961453,
+      "seconds": 2.380045351473923,
+      "従来版": {
+        "cache": "ds-945dd6dedf59d8a1-depth0.10-steps20.wav",
+        "sha256": "8b236a5ad20d089765445940e01bfd76daa702e758621ced9b4e5753546a0185",
+        "peak": 0.334625244140625,
+        "rms": 0.08719806458838829
+      },
+      "更新版": {
+        "cache": "ds-d5b3a6ce907263be-depth0.10-steps20.wav",
+        "sha256": "ce1b5af3e0a453ecc08f028a43132b247800a07411d3ee75d4086d961f335428",
+        "peak": 0.3280029296875,
+        "rms": 0.08616131426013592
+      }
+    },
+    {
+      "index": 8,
+      "start_sec": 23.422721088435374,
+      "seconds": 1.2190476190476192,
+      "従来版": {
+        "cache": "ds-bdbc838a73b162ea-depth0.10-steps20.wav",
+        "sha256": "72bf0533b5075a6185cbe210d83ecac545f7a07911ed115f973074ea20d393af",
+        "peak": 0.339630126953125,
+        "rms": 0.07782498203009093
+      },
+      "更新版": {
+        "cache": "ds-02c0ebcf64fc8098-depth0.10-steps20.wav",
+        "sha256": "6da3c3c35d34a5b21294556424d92e757e64e92697c4613ecc66635ad26561f5",
+        "peak": 0.328369140625,
+        "rms": 0.07739885414337132
+      }
+    },
+    {
+      "index": 9,
+      "start_sec": 25.141768707482992,
+      "seconds": 4.887800453514739,
+      "従来版": {
+        "cache": "ds-32d3de474ac7fb2d-depth0.10-steps20.wav",
+        "sha256": "27c0b0957686c8ec00d6e83176e8e87a4b7b4a4bdf27f8435148972a639b3dab",
+        "peak": 0.280975341796875,
+        "rms": 0.08283404474558939
+      },
+      "更新版": {
+        "cache": "ds-efee10c2e6ce6385-depth0.10-steps20.wav",
+        "sha256": "7d575a476c343ed3be2956823cb21589d8966738b79892f1764ac10e588eb83b",
+        "peak": 0.34161376953125,
+        "rms": 0.08133353291360505
+      }
+    },
+    {
+      "index": 10,
+      "start_sec": 30.52956916099773,
+      "seconds": 3.7151927437641725,
+      "従来版": {
+        "cache": "ds-816ce73763aaee4e-depth0.10-steps20.wav",
+        "sha256": "b6944b4a868b224eb3c5d5ca1e85a635c4fabb283eb2b1e7bf0dfa42a28044a0",
+        "peak": 0.487548828125,
+        "rms": 0.12926236249172143
+      },
+      "更新版": {
+        "cache": "ds-a29c7828af672460-depth0.10-steps20.wav",
+        "sha256": "6b58f10940411f6413797624414403aed6467b83da50d0084c67fd9958396ee1",
+        "peak": 0.538116455078125,
+        "rms": 0.12947914403651212
+      }
+    },
+    {
+      "index": 11,
+      "start_sec": 34.7447619047619,
+      "seconds": 1.6950566893424037,
+      "従来版": {
+        "cache": "ds-1d68fe606a11c31a-depth0.10-steps20.wav",
+        "sha256": "6bcec2012fc25e765ae6ca48b882fa276338187d74feb3cf1c29c426d0059222",
+        "peak": 0.279052734375,
+        "rms": 0.07957549893728375
+      },
+      "更新版": {
+        "cache": "ds-d304f47cdbf01d37-depth0.10-steps20.wav",
+        "sha256": "0b15f1a2276239d224f5eb161998d341aa1bc89e614a624b073a1aaf16b322dc",
+        "peak": 0.28179931640625,
+        "rms": 0.07782386344225062
+      }
+    },
+    {
+      "index": 12,
+      "start_sec": 36.9398185941043,
+      "seconds": 4.249251700680272,
+      "従来版": {
+        "cache": "ds-f3c4ead0c9c0c02e-depth0.10-steps20.wav",
+        "sha256": "11a4f6f33bf615add2724c157cbdd76f368bc8c6cf02a0df1f73f3fdfeed7899",
+        "peak": 0.35345458984375,
+        "rms": 0.09946146757763359
+      },
+      "更新版": {
+        "cache": "ds-6aa0872e56c79ad3-depth0.10-steps20.wav",
+        "sha256": "56ce25542918574c5e3928870ec063da932bf4cdbb4711c20dbbc4e8d222cdd4",
+        "peak": 0.38238525390625,
+        "rms": 0.09559258420998724
+      }
+    },
+    {
+      "index": 13,
+      "start_sec": 41.68907029478457,
+      "seconds": 1.9272562358276644,
+      "従来版": {
+        "cache": "ds-14c4365c6266d35d-depth0.10-steps20.wav",
+        "sha256": "36a3f5e65c89ef572d809e8479bb1b006f9966d7b2cbd6b58111fda5d7bd83cc",
+        "peak": 0.30670166015625,
+        "rms": 0.09203396390845112
+      },
+      "更新版": {
+        "cache": "ds-740ffec7e6b85100-depth0.10-steps20.wav",
+        "sha256": "13a2671ce03b1a2d02d8c085ce9a2d9f88db754fcdbdb731ddd31048e99dc44a",
+        "peak": 0.36688232421875,
+        "rms": 0.09072727416103152
+      }
+    },
+    {
+      "index": 14,
+      "start_sec": 44.116326530612234,
+      "seconds": 2.5309750566893423,
+      "従来版": {
+        "cache": "ds-40a5e54d077da92e-depth0.10-steps20.wav",
+        "sha256": "c39ee83675608ed04b089e1e5ddad5b4ccdb231f61676375975f10dcd1040031",
+        "peak": 0.346893310546875,
+        "rms": 0.0837134477563263
+      },
+      "更新版": {
+        "cache": "ds-04360a802ee3a87e-depth0.10-steps20.wav",
+        "sha256": "98cb0984030e06695948a46f0a92a4511b8b291cad104442750a1bd75b3c8ef7",
+        "peak": 0.3355712890625,
+        "rms": 0.08268233496953328
+      }
+    },
+    {
+      "index": 15,
+      "start_sec": 47.14730158730158,
+      "seconds": 2.716734693877551,
+      "従来版": {
+        "cache": "ds-539241c66395ff3e-depth0.10-steps20.wav",
+        "sha256": "fb55185040c2ee4e2ae014bc45e216ff907a096b411e32f583d477b2611c5361",
+        "peak": 0.39080810546875,
+        "rms": 0.09250819840201172
+      },
+      "更新版": {
+        "cache": "ds-c68ff6557adcf940-depth0.10-steps20.wav",
+        "sha256": "edfc168b73503b9b25ec51eacb545eeefef8ab4b863f08783f8cb297733b08b9",
+        "peak": 0.44085693359375,
+        "rms": 0.0913216866248479
+      }
+    },
+    {
+      "index": 16,
+      "start_sec": 50.364036281179125,
+      "seconds": 3.7848526077097504,
+      "従来版": {
+        "cache": "ds-4228c070be194b3c-depth0.10-steps20.wav",
+        "sha256": "59f09a4ff7a76035bb500abede5756f1b9463b73632a1d0a858cf441cb07002b",
+        "peak": 0.5142822265625,
+        "rms": 0.08979231533313628
+      },
+      "更新版": {
+        "cache": "ds-d3cb36cfe1890b73-depth0.10-steps20.wav",
+        "sha256": "6c922663428799e460bd01e7d5caa3beda066178ac68da984b6236713653e7fe",
+        "peak": 0.484893798828125,
+        "rms": 0.08726562993049368
+      }
+    }
+  ]
+}
