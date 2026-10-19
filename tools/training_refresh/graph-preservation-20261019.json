@@ -1,0 +1,10 @@
+{
+  "template_sha256": "de4f6c9d77242d061f1e26553e3a3aa7ae6545600e2edd5a690d68172548e374",
+  "baseline_sha256": "928d8e11b5ac56835579c10ff547ed4d3bb00d4fb92ffc792d70e6f2db681431",
+  "retrained_sha256": "4ffc7ea15c3c4edab9eefc3629e401d764e9e24da1db742785c52e80cd30a728",
+  "output_sha256": "c5557dd50e7d1a2528a6284c7d1d09d3a9f8f30c3604e82616bdfb9065cf2915",
+  "raw_export_topology_identical": true,
+  "branch_tensors_replaced": 364,
+  "changed_branch_tensors": 266,
+  "all_nonraw_processing_preserved": true
+}

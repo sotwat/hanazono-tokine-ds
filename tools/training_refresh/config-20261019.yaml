@@ -1,0 +1,69 @@
+base_config:
+- configs/acoustic.yaml
+dictionaries:
+  ja: /Users/aaa/Documents/DiffSinger/artifacts/tokine-refresh-20261019/dictionary.txt
+extra_phonemes:
+- cl
+merged_phoneme_groups:
+- - AP
+  - SP
+datasets:
+- raw_data_dir: /Users/aaa/Documents/DiffSinger/artifacts/tokine-refresh-20261019/raw/tokine
+  speaker: tokine
+  spk_id: 0
+  language: ja
+  test_prefixes:
+  - validation_
+- raw_data_dir: /Users/aaa/Documents/DiffSinger/artifacts/tokine-ds-multispeaker/raw/nit070
+  speaker: nit070
+  spk_id: 1
+  language: ja
+  test_prefixes: []
+binary_data_dir: /Users/aaa/Documents/DiffSinger/artifacts/tokine-refresh-20261019/binary
+pe: parselmouth
+hnsep: world
+binarization_args:
+  num_workers: 0
+pl_trainer_accelerator: mps
+pl_trainer_devices: 1
+pl_trainer_precision: 32-true
+pl_trainer_strategy:
+  name: auto
+ds_workers: 1
+hidden_size: 128
+enc_layers: 2
+backbone_args:
+  num_channels: 192
+  num_layers: 5
+  kernel_size: 15
+shallow_diffusion_args:
+  aux_decoder_args:
+    num_channels: 192
+    num_layers: 4
+optimizer_args:
+  optimizer_cls: torch.optim.AdamW
+  lr: 3.0e-05
+max_batch_frames: 2200
+max_batch_size: 4
+max_val_batch_frames: 1800
+max_val_batch_size: 2
+max_updates: 1500
+val_check_interval: 500
+num_sanity_val_steps: 0
+num_valid_plots: 0
+val_with_vocoder: false
+num_ckpt_keep: 4
+sampling_steps: 10
+permanent_ckpt_start: 500
+permanent_ckpt_interval: 500
+log_interval: 100
+finetune_enabled: true
+finetune_ckpt_path: /Users/aaa/Documents/DiffSinger/checkpoints/tokine_ds_multispeaker_nit070/model_ckpt_steps_4000.ckpt
+finetune_ignored_params: []
+finetune_strict_shapes: true
+use_spk_id: true
+num_spk: 2
+frozen_params:
+- model.fs2.spk_embed
+freezing_enabled: true
+accumulate_grad_batches: 2
