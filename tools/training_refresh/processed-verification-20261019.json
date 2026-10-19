@@ -1,0 +1,20 @@
+{
+  "previous": {
+    "cases": 13,
+    "peak_max": 0.5351646542549133,
+    "all_finite": true,
+    "clip_samples": 0
+  },
+  "updated": {
+    "cases": 13,
+    "peak_max": 0.507581889629364,
+    "all_finite": true,
+    "clip_samples": 0
+  },
+  "duration_sec": 58.38498866213152,
+  "identical_inputs": true,
+  "amplitude_normalization": false,
+  "outputs_differ": true,
+  "rms_difference": 0.014896658930487519,
+  "acoustic_sha256": "c5557dd50e7d1a2528a6284c7d1d09d3a9f8f30c3604e82616bdfb9065cf2915"
+}

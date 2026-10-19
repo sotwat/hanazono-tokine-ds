@@ -1,0 +1,125 @@
+{
+  "native_app": "/Applications/OpenUtau AU.app",
+  "native_fixture": "/Users/aaa/Documents/DiffSinger/artifacts/tokine-refresh-20261019/native-updated.ustx",
+  "singer": "花園トキネDS v1.3.0-rc.1",
+  "cache_outputs": [
+    {
+      "file": "ds-6aa0872e56c79ad3-depth0.10-steps20.wav",
+      "sample_rate": 44100,
+      "seconds": 4.249251700680272,
+      "peak": 0.38238525390625,
+      "rms": 0.09559258420998724
+    },
+    {
+      "file": "ds-bc37ad7f145931cf-depth0.10-steps20.wav",
+      "sample_rate": 44100,
+      "seconds": 1.4048072562358276,
+      "peak": 0.316680908203125,
+      "rms": 0.07344536681770926
+    },
+    {
+      "file": "ds-740ffec7e6b85100-depth0.10-steps20.wav",
+      "sample_rate": 44100,
+      "seconds": 1.9272562358276644,
+      "peak": 0.36688232421875,
+      "rms": 0.09072727416103152
+    },
+    {
+      "file": "ds-02c0ebcf64fc8098-depth0.10-steps20.wav",
+      "sample_rate": 44100,
+      "seconds": 1.2190476190476192,
+      "peak": 0.328369140625,
+      "rms": 0.07739885414337132
+    },
+    {
+      "file": "ds-d5b3a6ce907263be-depth0.10-steps20.wav",
+      "sample_rate": 44100,
+      "seconds": 2.380045351473923,
+      "peak": 0.3280029296875,
+      "rms": 0.08616131426013592
+    },
+    {
+      "file": "ds-0f12da903295e21a-depth0.10-steps20.wav",
+      "sample_rate": 44100,
+      "seconds": 5.305759637188209,
+      "peak": 0.38189697265625,
+      "rms": 0.08913493611209805
+    },
+    {
+      "file": "ds-de3c8f24ad55703c-depth0.10-steps20.wav",
+      "sample_rate": 44100,
+      "seconds": 3.4713832199546486,
+      "peak": 0.48712158203125,
+      "rms": 0.11332677086350558
+    },
+    {
+      "file": "ds-41b3428f9cc6160d-depth0.10-steps20.wav",
+      "sample_rate": 44100,
+      "seconds": 2.345215419501134,
+      "peak": 0.37689208984375,
+      "rms": 0.08868813413107472
+    },
+    {
+      "file": "ds-04360a802ee3a87e-depth0.10-steps20.wav",
+      "sample_rate": 44100,
+      "seconds": 2.5309750566893423,
+      "peak": 0.3355712890625,
+      "rms": 0.08268233496953328
+    },
+    {
+      "file": "ds-b20e9ffb762bb913-depth0.10-steps20.wav",
+      "sample_rate": 44100,
+      "seconds": 2.4961451247165534,
+      "peak": 0.286773681640625,
+      "rms": 0.07171242281019179
+    },
+    {
+      "file": "ds-667ed501c0239c63-depth0.10-steps20.wav",
+      "sample_rate": 44100,
+      "seconds": 2.5193650793650795,
+      "peak": 0.359588623046875,
+      "rms": 0.08000475057352811
+    },
+    {
+      "file": "ds-a29c7828af672460-depth0.10-steps20.wav",
+      "sample_rate": 44100,
+      "seconds": 3.7151927437641725,
+      "peak": 0.538116455078125,
+      "rms": 0.12947914403651212
+    },
+    {
+      "file": "ds-c68ff6557adcf940-depth0.10-steps20.wav",
+      "sample_rate": 44100,
+      "seconds": 2.716734693877551,
+      "peak": 0.44085693359375,
+      "rms": 0.0913216866248479
+    },
+    {
+      "file": "ds-d304f47cdbf01d37-depth0.10-steps20.wav",
+      "sample_rate": 44100,
+      "seconds": 1.6950566893424037,
+      "peak": 0.28179931640625,
+      "rms": 0.07782386344225062
+    },
+    {
+      "file": "ds-efee10c2e6ce6385-depth0.10-steps20.wav",
+      "sample_rate": 44100,
+      "seconds": 4.887800453514739,
+      "peak": 0.34161376953125,
+      "rms": 0.08133353291360505
+    },
+    {
+      "file": "ds-d3cb36cfe1890b73-depth0.10-steps20.wav",
+      "sample_rate": 44100,
+      "seconds": 3.7848526077097504,
+      "peak": 0.484893798828125,
+      "rms": 0.08726562993049368
+    }
+  ],
+  "finite": true,
+  "completed_progress_observed": true,
+  "native_errors_in_interval": false,
+  "unrelated_singer_registration_diagnostic_pending": true,
+  "unrelated_singer_registrations_restored": true,
+  "startup_external_singer_reference_blocker_remains": true
+}

@@ -75,3 +75,5 @@ python scripts/export.py acoustic --exp tokine_ds_refresh_20261019_balanced \
 ```
 
 The checked configuration snapshots, selection metrics and graph-preservation hashes are retained alongside this document. The acoustic replacement script also asserts the baseline graph and template tensors before writing. Do not package a raw export by itself: it omits the accepted processing graph and paired vocoder.
+
+Native verification: the AU application displayed v1.3.0-rc.1 and completed rendering the eleven-part fixture. Sixteen new cache waveforms were finite (peak <=0.5382), with no ERR entries in the checked interval. Unrelated external singer references stall startup; they were isolated temporarily for this check and restored afterward. Permanent removal is awaiting the owner's decision. The current AU session has the updated singer loaded.
