@@ -1,6 +1,8 @@
-# Periodicity during replaced sustain
+# Rejected experiment: periodicity during replaced sustain
 
-Build the paired models with:
+Rejected on 2026-10-20 after the user reported a worse, distinctly different timbre at the sustained vowel. Both installed models were restored to their preceding versions. The off-harmonic-energy reduction did not establish acceptable voice quality; cycle averaging can remove natural cycle variation and change timbre. Retained only as an experiment record; do not use in distribution or reinstall as a fix. The original distortion remains unresolved.
+
+Experimental reproduction only:
 
 ```sh
 python tools/portable/sustain_periodicity.py acoustic.onnx vocoder.onnx output
