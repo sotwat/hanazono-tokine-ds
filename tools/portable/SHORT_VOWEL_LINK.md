@@ -1,6 +1,7 @@
 # Short connected vowel trial — 2026-10-20
 
-Status: audition candidate only. Not installed and not published.
+Status: user approved on 2026-10-21 and installed in both local banks.
+Public releases unchanged.
 
 The user hears an extra breath/catch in `ひ→あ` within `あのひあのとき`.
 The actual /i/ is 14 acoustic frames; the existing long-vowel handoff
@@ -34,9 +35,20 @@ frames 83–87 in the original/donor branches change; control is identical.
 The same seeded, installed vocoder produces 165888 samples in each version,
 peak .40465/.40407, finite and unclipped. No added output normalization.
 The comparison contains full phrase context, before, 0.5 s silence, after.
-Numerical differences do not establish perceptual improvement; user audition
-is pending. This trial does not establish all short-vowel pairs are natural.
+Numerical differences alone do not establish perceptual improvement. The
+user subsequently accepted this comparison on 2026-10-21. This trial does not establish all short-vowel pairs are natural.
 
 Native OpenUtau candidate rendering with DIFFS JA also completed with no
 errors and exactly matching phone metadata and sample counts. The original
 project and both installed banks remain unchanged.
+
+## Local adoption — 2026-10-21
+
+Installed the exact approved build3 acoustic, SHA256
+`88e8d7b58034613b5260d45d80727dc1eaff4615e5e3ccc4749e70415e66612a`.
+Both bank manifests verified. Vocoder, duration, display version and score
+retained. Previous model/metadata and 185 DS cache files were backed up in
+`installed-20261021/`. OpenUtau AU restarted; the DIFFS JA excerpt rendered
+to a new 165888-sample/44100 Hz cache, finite, peak .34073. The app was
+returned to the original backup project afterward. This does not establish
+all short-vowel connections are perceptually perfect.
