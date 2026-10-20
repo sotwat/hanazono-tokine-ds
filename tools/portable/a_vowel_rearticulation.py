@@ -17,11 +17,13 @@ def targets(tokens,durations):
 
 
 class Context(torch.nn.Module):
+    def __init__(self,frames=12):
+        super().__init__(); self.frames=frames
     def forward(self,tokens,durations,f0):
         target=targets(tokens,durations)
         reset=torch.cat((target[:,1:],torch.zeros_like(target[:,:1])),1)
         changed=torch.where(reset,torch.ones_like(tokens),tokens)
-        compressed=torch.where(target,torch.full_like(durations,12),durations)
+        compressed=torch.where(target,torch.full_like(durations,self.frames),durations)
         starts=durations.cumsum(1)-durations
         cs=compressed.cumsum(1)-compressed
         t=torch.arange(compressed.sum())[None,None,:]
@@ -35,10 +37,12 @@ class Context(torch.nn.Module):
 
 
 class Join(torch.nn.Module):
+    def __init__(self,frames=12,core_start=5,core_span=4):
+        super().__init__(); self.frames=frames; self.core_start=core_start; self.core_span=core_span
     def forward(self,tokens,durations,base,fresh):
         target=targets(tokens,durations)
         starts=durations.cumsum(1)-durations
-        compressed=torch.where(target,torch.full_like(durations,12),durations)
+        compressed=torch.where(target,torch.full_like(durations,self.frames),durations)
         cs=compressed.cumsum(1)-compressed
         t=torch.arange(base.shape[1])[None,None,:]
         off=(t-starts[:,:,None]).float()
@@ -50,7 +54,7 @@ class Join(torch.nn.Module):
         w=w*target[:,:,None]
         total=w.sum(1).unsqueeze(2)
         # Keep the moving, voiced core of the short learned vowel, not its breath/release.
-        position=cs[:,:,None]+5+4*(off/(d*.75).clamp(min=1)).clamp(0,1)
+        position=cs[:,:,None]+self.core_start+self.core_span*(off/(d*.75).clamp(min=1)).clamp(0,1)
         pos=(position*w.gt(0)).sum(1).float().clamp(0,fresh.shape[1]-1)
         left=pos.long();right=(left+1).clamp(max=fresh.shape[1]-1);alpha=(pos-left).unsqueeze(2)
         resynth=fresh.gather(1,left.unsqueeze(2).expand(-1,-1,128))*(1-alpha)+fresh.gather(1,right.unsqueeze(2).expand(-1,-1,128))*alpha
@@ -58,13 +62,13 @@ class Join(torch.nn.Module):
         return torch.where(total>0,mixed,base)
 
 
-def build(source,output):
+def build(source,output,frames=12,core_start=5,core_span=4):
     output.mkdir(parents=True,exist_ok=False);m=onnx.load(source)
     args=(torch.tensor([[1,14,3,16,3,1]]),torch.tensor([[8,57,52,6,34,8]]),torch.full((1,165),293.66))
     context=output/'context.onnx'
-    torch.onnx.export(Context(),args,context,input_names=['tokens','durations','f0'],output_names=['new_tokens','new_durations','new_f0'],opset_version=18,dynamo=False,dynamic_axes={'tokens':{1:'N'},'durations':{1:'N'},'f0':{1:'F'},'new_tokens':{1:'N'},'new_durations':{1:'N'},'new_f0':{1:'C'}})
+    torch.onnx.export(Context(frames),args,context,input_names=['tokens','durations','f0'],output_names=['new_tokens','new_durations','new_f0'],opset_version=18,dynamo=False,dynamic_axes={'tokens':{1:'N'},'durations':{1:'N'},'f0':{1:'F'},'new_tokens':{1:'N'},'new_durations':{1:'N'},'new_f0':{1:'C'}})
     layer=output/'join.onnx'
-    torch.onnx.export(Join(),(*args[:2],torch.randn(1,165,128),torch.randn(1,165,128)),layer,input_names=['tokens','durations','base','fresh'],output_names=['joined'],opset_version=18,dynamo=False,dynamic_axes={'tokens':{1:'N'},'durations':{1:'N'},'base':{1:'F'},'fresh':{1:'C'},'joined':{1:'F'}})
+    torch.onnx.export(Join(frames,core_start,core_span),(*args[:2],torch.randn(1,165,128),torch.randn(1,165,128)),layer,input_names=['tokens','durations','base','fresh'],output_names=['joined'],opset_version=18,dynamo=False,dynamic_axes={'tokens':{1:'N'},'durations':{1:'N'},'base':{1:'F'},'fresh':{1:'C'},'joined':{1:'F'}})
     nodes=[];constants=list(m.graph.initializer)
     append_model(nodes,constants,context,'ar_context_',dict(tokens='tokens',durations='durations',f0='f0',new_tokens='ar_tokens',new_durations='ar_durations',new_f0='ar_f0'))
     needed={'original_su_raw','donor_su_raw'};selected=[];boundary={v.name for v in m.graph.input}
