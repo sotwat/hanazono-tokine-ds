@@ -1,4 +1,4 @@
-"""Bounded, constant-per-phone gain for abnormally quiet voiced vowels."""
+"""Bounded, constant-per-phone balancing of voiced vowels."""
 import argparse
 from pathlib import Path
 import numpy as np
@@ -20,16 +20,23 @@ class VowelBalance(torch.nn.Module):
         lo = (starts + duration//5).clamp(max=frames-1)
         hi = (ends - duration//5).clamp(min=1, max=frames)
         rms = ((integral[hi]-integral[lo]).clamp(min=0)/(hi-lo).clamp(min=1)+1e-10).sqrt()
-        voiced = (control[:,6] > .5) & (duration >= 6) & (rms > .008)
+        sample = torch.arange(wave.shape[1],device=wave.device)
+        fi = (sample//512).clamp(max=frames-1)
+        lag = (44100/control[fi,3].clamp(min=22)).round().long().clamp(min=1,max=2048)
+        delayed = wave[0][(sample-lag).clamp(min=0)]
+        cross = (wave[0]*delayed).reshape(-1,512).mean(1)
+        delayed_power = delayed.square().reshape(-1,512).mean(1)
+        ci = torch.cat((torch.zeros_like(cross[:1]),cross.cumsum(0)))
+        di = torch.cat((torch.zeros_like(power[:1]),delayed_power.cumsum(0)))
+        correlation = (ci[hi]-ci[lo])/((integral[hi]-integral[lo]).clamp(min=1e-10)*(di[hi]-di[lo]).clamp(min=1e-10)).sqrt()
+        voiced = (control[:,6] > .5) & (duration >= 6) & (rms > .008) & (correlation > .25)
         unique = voiced & (frame == starts)
         ordered = torch.sort(torch.where(unique,rms,torch.full_like(rms,1e6)))[0]
         count = unique.long().sum()
         reference = ordered[(count//2)]
         deficit = 20*torch.log10(reference.clamp(min=1e-5)/rms.clamp(min=1e-5))
-        boost_db = ((deficit-1)*.5).clamp(min=0,max=1.5)
+        boost_db = (torch.sign(deficit)*(deficit.abs()-1.5).clamp(min=0)*.65).clamp(min=-4,max=4)
         boost_db = torch.where(voiced & (count>=2),boost_db,torch.zeros_like(boost_db))
-        sample = torch.arange(wave.shape[1],device=wave.device)
-        fi = (sample//512).clamp(max=frames-1)
         distance = torch.minimum(sample-starts[fi]*512,ends[fi]*512-1-sample).float()
         fade = (distance/882).clamp(min=0,max=1)
         weight = .5-.5*torch.cos(torch.pi*fade)
