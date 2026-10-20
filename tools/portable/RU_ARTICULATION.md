@@ -1,6 +1,10 @@
 # R before U articulation trial
 
-Status: listening trial, not installed or released (2026-10-21).
+Status: approved by the user and installed in both local banks (2026-10-21).
+GitHub release assets have not been updated. Installed acoustic SHA-256:
+`8061bc1231a55254d64fe35fe7ebb4af6db5f512b2dc482efc63c51584540fdc`.
+Both manifests were verified; previous acoustic and 213 caches were retired to
+the local artifact `installed/` directory.
 
 `ru_articulation.py` adds bounded spectral contrast within r immediately before
 u, using the following vowel as the reference. It targets every eligible r/u
@@ -24,5 +28,8 @@ preserved. Seeded comparisons changed only r frames 67–69 in おどる and 95�
 in するたび; control and all non-r mel are exact. Native OpenUtau DIFFS JA
 rendering completed with no errors, identical phone metadata and 47104/157696
 samples. Native peaks .45256/.46588 are finite and unclipped. These checks prove
-scope and operability, not better perceived pronunciation. The candidate retains
-the newly approved high-vowel AP vocoder; installed acoustic remains unchanged.
+scope and operability, not better perceived pronunciation. The installed bank retains
+the approved high-vowel AP vocoder. A fresh native render and normal AU UI
+render after restart both produced the expected 47104/157696 samples, finite
+and unclipped. Evidence is in `installed/native-verification.json` and
+`installed/ui-render.json`.
