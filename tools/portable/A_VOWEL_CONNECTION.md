@@ -1,4 +1,6 @@
-# Long vowel → /a/ connection trial (uninstalled)
+# Long vowel → /a/ connection trial (rejected)
+
+2026-10-20 listening result: the user heard no improvement, calling this the same as the earlier attempt. Do not adopt this trial or use the numerical mel differences as evidence of perceptual improvement.
 
 The user rejected +4 dB onset gain as too strong and suspects a connection fault. This experiment changes the spectral connection, with no new waveform gain, EQ, saturation or sustain resynthesis changes.
 
@@ -26,4 +28,4 @@ python tools/portable/check_a_vowel_connection.py ACOUSTIC.onnx OUTPUT_DIRECTORY
 - Native OpenUtau candidate render checks phone boundaries, sample count and errors separately. No score editing or installation is involved.
 - Artifact: `/Users/aaa/Documents/DiffSinger/artifacts/tokine-vowel-join-20261020`. Comparison is baseline → 0.5 seconds silence → trial, PCM24/44.1 kHz mono, no additional normalization.
 
-This is a listening trial, not an adopted or published fix. The installed/local production banks remain unchanged. The remaining long-note distortion is a separate unresolved issue.
+This trial was rejected, and was never installed or published. The installed/local production banks remain unchanged. The remaining long-note distortion is a separate unresolved issue.
