@@ -1,3 +1,5 @@
 __pycache__/
 *.pyc
 /releases/tokine-ds-v*/
+/tools/phonemizer/bin/
+/tools/phonemizer/obj/
