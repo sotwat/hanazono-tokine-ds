@@ -1,6 +1,8 @@
-# /a/ onset gain trial — listening approval pending
+# /a/ onset gain trial — rejected
 
-2026-10-20: isolate the user's weak /a/ attack complaint from the unresolved long-note distortion. The rejected full-interior neural resynthesis remains disabled. This is an uninstalled trial; the production acoustic hash remains `807a109b5588497dae6b7644b041b009655fd73a2938ce761066f731496171cf`.
+2026-10-20 user decision: rejected. The attack became too strong; the user identified the join itself as the issue, rather than volume. Do not install this trial or treat a smaller gain as an accepted fix.
+
+Original trial: isolate the user's weak /a/ attack complaint from the unresolved long-note distortion. The rejected full-interior neural resynthesis remains disabled. This is an uninstalled trial; the production acoustic hash remains `807a109b5588497dae6b7644b041b009655fd73a2938ce761066f731496171cf`.
 
 ```sh
 python tools/portable/a_vowel_attack.py ACOUSTIC.onnx VOCODER.onnx OUTPUT_DIRECTORY
@@ -18,4 +20,4 @@ Artifact: `/Users/aaa/Documents/DiffSinger/artifacts/tokine-a-attack-20261020`.
 - Fixed-wave comparisons use the *same* baseline native OpenUtau output for both halves, avoiding diffusion draw differences.「き→あ→か」and「あの日あのとき」comparisons change 10,583 and 5,529 samples respectively. Maximum gain is 4 dB; all outside-window samples are bit-identical before 24-bit export. The first half is baseline, followed by 0.5 seconds of silence, then the trial. No extra normalization.
 - Both candidate ONNX files retain all existing initializer bytes. A separate unregistered candidate bank allows native integration testing. The installed bank and running OpenUtau remain unchanged.
 
-This creates a more prominent onset; it does not establish perceptual success, fix the full crescendo contour, or solve residual sustained-vowel distortion. The user's listening judgement is still required before adopting the trial.
+This creates a more prominent onset; it does not establish perceptual success, fix the full crescendo contour, or solve residual sustained-vowel distortion. The user rejected this trial; production was never changed.
