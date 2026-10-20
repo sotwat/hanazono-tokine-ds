@@ -1,6 +1,8 @@
-# Vowel sustain with preserved edges
+# Vowel sustain with preserved edges — rejected experiment
 
-Build on the installed acoustic model that already contains `tc_*` short-vowel passes:
+**2026-10-20: rejected by the user.** The user heard more distortion and preferred the previous version. Both local banks were restored byte-for-byte to acoustic SHA256 `807a109b5588497dae6b7644b041b009655fd73a2938ce761066f731496171cf`. Do not install this experiment as an improvement. Reduced envelope modulation and passing timing checks did not predict perceptual quality. The original sustain distortion and weak vowel attacks remain unresolved.
+
+For reproduction only, build on the acoustic model that already contains `tc_*` short-vowel passes:
 
 ```sh
 python tools/portable/stable_vowel_resynthesis.py INPUT.onnx OUTPUT_DIRECTORY
