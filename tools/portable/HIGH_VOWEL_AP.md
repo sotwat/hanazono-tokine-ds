@@ -1,6 +1,10 @@
 # High vowel WORLD excitation trial
 
-Status: listening trial, not installed or released (2026-10-21).
+Status: approved by the user and installed in both local banks (2026-10-21).
+GitHub release assets have not been updated. Installed vocoder SHA-256:
+`19b6b27991631b5e3b5426a719cdec1357895f0b95f62c7d8846fbf5a1954201`.
+Both manifests were verified. The normal AU UI rendered 158208 finite samples
+after restart; installation evidence is in the artifact `installed/` directory.
 
 The current G5–F#5 passage in 「ぶたい」 uses the WORLD branch fully.
 Captured WORLD analysis shows substantial aperiodicity during its vowels.
