@@ -10,6 +10,10 @@ from build_pair import append_model
 
 
 class TimeMaps(torch.nn.Module):
+    def __init__(self, interior_guard=False):
+        super().__init__()
+        self.interior_guard = interior_guard
+
     def forward(self, tokens, durations, f0):
         starts = torch.cumsum(durations, dim=1)-durations
         ends = starts+durations
@@ -18,7 +22,15 @@ class TimeMaps(torch.nn.Module):
         high = torch.where(inside, f0[:, None, :], torch.zeros_like(f0[:, None, :])).amax(dim=2)
         low = torch.where(inside, f0[:, None, :], torch.full_like(f0[:, None, :], 1e6)).amin(dim=2)
         vowel = (tokens == 3) | (tokens == 9) | (tokens == 14) | (tokens == 20) | (tokens == 28)
-        eligible = vowel & (durations >= 40) & (low > 60) & (high < low*1.0293)
+        if self.interior_guard:
+            edge = torch.maximum(durations // 5, torch.full_like(durations, 6))
+            core = inside & (t >= (starts+edge)[:, :, None]) & (t < (ends-edge)[:, :, None])
+            core_high = torch.where(core, f0[:, None, :], torch.zeros_like(f0[:, None, :])).amax(dim=2)
+            core_low = torch.where(core, f0[:, None, :], torch.full_like(f0[:, None, :], 1e6)).amin(dim=2)
+            stable = core_high < core_low*1.0293
+        else:
+            stable = high < low*1.0293
+        eligible = vowel & (durations >= 40) & (low > 60) & stable
         compressed = torch.where(eligible, torch.full_like(durations, 24), durations)
         cs = torch.cumsum(compressed, dim=1)-compressed
         ce = cs+compressed
