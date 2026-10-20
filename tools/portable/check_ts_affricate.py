@@ -8,7 +8,7 @@ import onnx
 import onnxruntime as ort
 
 
-def check(source, candidate, output):
+def check(source, candidate, output, include_ch=False):
     opts = ort.SessionOptions(); opts.log_severity_level = 3; opts.intra_op_num_threads = 2
     session = ort.InferenceSession(str(candidate.parent/'maps.onnx'), opts)
     cases = 0
@@ -19,10 +19,10 @@ def check(source, candidate, output):
                 durations = np.array([[8, duration, 10, 8]], np.int64)
                 f0 = np.full((1, int(durations.sum())), 440, np.float32)
                 t, d, mask = session.run(None, dict(tokens=tokens, durations=durations, f0=f0))
-                active = phone == 27 and duration >= 2 and following != 1
+                active = phone in ((6,27) if include_ch else (27,)) and duration >= 2 and following != 1
                 assert d.sum() == durations.sum()
                 if active:
-                    assert t.tolist() == [[1, 26, 24, following, 1]]
+                    assert t.tolist() == [[1, 26, 25 if phone == 6 else 24, following, 1]]
                     assert d[0, 1]+d[0, 2] == duration and np.all(d[0, 1:3] > 0)
                     assert np.all(mask[0, 8:8+duration] == 1)
                     assert np.count_nonzero(mask) == duration
@@ -60,4 +60,4 @@ def check(source, candidate, output):
 
 if __name__ == '__main__':
     p=argparse.ArgumentParser();p.add_argument('source',type=Path);p.add_argument('candidate',type=Path);p.add_argument('output',type=Path)
-    a=p.parse_args();check(a.source,a.candidate,a.output)
+    p.add_argument('--include-ch',action='store_true');a=p.parse_args();check(a.source,a.candidate,a.output,a.include_ch)

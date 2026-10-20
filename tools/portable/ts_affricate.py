@@ -20,13 +20,18 @@ def dependencies(node):
 
 
 class AffricateMaps(torch.nn.Module):
+    def __init__(self, include_ch=False):
+        super().__init__()
+        self.include_ch = include_ch
+
     def forward(self, tokens, durations, f0):
         following = torch.cat((tokens[:, 1:], torch.zeros_like(tokens[:, :1])), dim=1)
         vowel = (following == 3) | (following == 9) | (following == 14) | (following == 20) | (following == 28)
-        target = (tokens == 27) & (durations >= 2) & vowel
+        affricate = (tokens == 27) | ((tokens == 6) if self.include_ch else torch.zeros_like(tokens, dtype=torch.bool))
+        target = affricate & (durations >= 2) & vowel
         stop = torch.minimum(durations // 3, torch.full_like(durations, 3)).clamp(min=1)
         first = torch.where(target, torch.full_like(tokens, 26), tokens)
-        second = torch.full_like(tokens, 24)
+        second = torch.where(tokens == 6, torch.full_like(tokens, 25), torch.full_like(tokens, 24)) if self.include_ch else torch.full_like(tokens, 24)
         first_d = torch.where(target, stop, durations)
         second_d = torch.where(target, durations-stop, torch.zeros_like(durations))
         keep = torch.stack((torch.ones_like(target), target), dim=2).flatten()
