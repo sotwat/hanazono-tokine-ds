@@ -8,6 +8,13 @@ import torch
 from build_pair import append_model
 
 class VowelBalance(torch.nn.Module):
+    def __init__(self, deadband_db=1.5, strength=.65, limit_db=4., attenuation_limit_db=None):
+        super().__init__()
+        self.deadband_db = deadband_db
+        self.strength = strength
+        self.limit_db = limit_db
+        self.attenuation_limit_db = limit_db if attenuation_limit_db is None else attenuation_limit_db
+
     def forward(self, wave, control):
         frames = control.shape[0]
         frame = torch.arange(frames, device=wave.device)
@@ -35,7 +42,7 @@ class VowelBalance(torch.nn.Module):
         count = unique.long().sum()
         reference = ordered[(count//2)]
         deficit = 20*torch.log10(reference.clamp(min=1e-5)/rms.clamp(min=1e-5))
-        boost_db = (torch.sign(deficit)*(deficit.abs()-1.5).clamp(min=0)*.65).clamp(min=-4,max=4)
+        boost_db = (torch.sign(deficit)*(deficit.abs()-self.deadband_db).clamp(min=0)*self.strength).clamp(min=-self.attenuation_limit_db,max=self.limit_db)
         boost_db = torch.where(voiced & (count>=2),boost_db,torch.zeros_like(boost_db))
         distance = torch.minimum(sample-starts[fi]*512,ends[fi]*512-1-sample).float()
         fade = (distance/882).clamp(min=0,max=1)
