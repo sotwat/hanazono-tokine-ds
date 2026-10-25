@@ -13,12 +13,12 @@ for previous in [1,3,9,14,16,20,28]:
  for current in [1,3,9,14,16,20,28]:
   for duration in [0,6,39,40,80]:
    for length in [0,6,12,40]:
-    for valley in [False,True]:
+    for valley in [0,1,2,3,4,5,6]:
      tokens=torch.tensor([[1,previous,current,1]])
      durations=torch.tensor([[8,duration,length,8]])
      frames=int(durations.sum());start=8+duration
      mel=torch.full((1,frames,128),-3.)
-     if valley:mel[:,max(0,start-4)]=-5.
+     if valley:mel[:,max(0,start-valley)]=-5.
      actual=LongVowelLink()(tokens,durations,mel)
      expected=previous in [3,9,14,20,28] and current in [3,9,14,20,28] and previous!=current and duration>=40 and length>=12 and valley
      if not expected:assert torch.equal(actual,mel)

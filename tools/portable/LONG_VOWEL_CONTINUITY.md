@@ -62,3 +62,7 @@ Installed acoustic SHA256:
 Both 36-entry manifests verified; previous acoustic/metadata and 220 cache
 files backed up. OpenUtau restarted and original score restored at 180 BPM,
 DIFFS JA. This follow-up's listening approval is still pending.
+
+### 2026-10-26 mo-to-i valley detection
+
+Valley at boundary -2 was missed by the single -4 detector. Use minimum over -6..-1 while retaining gates, threshold, anchors and log-level blend. 6860 Torch/ONNX cases and spectral/level tests pass. Fixed-seed omoi changes only mel208-218; negatta and tokiakasou waves identical. Native OpenUtau omoi errors empty and phoneme metadata identical. Both local banks installed acoustic e709466e1a3bfe472f2c5545aee4403282b6af51dfce28f3d79ebcad8ed19e88, vocoder unchanged, manifest36/36 each. Backups include old models/metadata and220 cache files. AU restarted into original Backup Track9 DIFFS JA180BPM. Release unchanged. Previous i-to-a attack revision user-approved; new mo-to-i listening approval pending. Artifact /Users/aaa/Documents/DiffSinger/artifacts/tokine-oi-continuity-20261026; omoi-comparison.wav before/silence/after. Existing skill research reused, no dependencies added.

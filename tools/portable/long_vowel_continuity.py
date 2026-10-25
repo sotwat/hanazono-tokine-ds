@@ -15,7 +15,7 @@ class LongVowelLink(torch.nn.Module):
         energy=torch.logsumexp(mel,dim=2)
         le=energy.gather(1,(starts-8).clamp(0,mel.shape[1]-1))
         re=energy.gather(1,(starts+4).clamp(0,mel.shape[1]-1))
-        mid=energy.gather(1,(starts-4).clamp(0,mel.shape[1]-1))
+        mid=torch.stack([energy.gather(1,(starts-offset).clamp(0,mel.shape[1]-1)) for offset in range(1,7)],dim=2).amin(dim=2)
         eligible=eligible&(mid<torch.minimum(le,re)-0.4)
         t=torch.arange(mel.shape[1])[None,None,:]
         off=t-starts[:,:,None]
