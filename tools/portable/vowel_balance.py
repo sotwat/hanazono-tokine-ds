@@ -8,8 +8,9 @@ import torch
 from build_pair import append_model
 
 class VowelBalance(torch.nn.Module):
-    def __init__(self, deadband_db=1.5, strength=.65, limit_db=4., attenuation_limit_db=None):
+    def __init__(self, deadband_db=1.5, strength=.65, limit_db=4., attenuation_limit_db=None, continuous_vowels=False):
         super().__init__()
+        self.continuous_vowels = continuous_vowels
         self.deadband_db = deadband_db
         self.strength = strength
         self.limit_db = limit_db
@@ -47,7 +48,15 @@ class VowelBalance(torch.nn.Module):
         distance = torch.minimum(sample-starts[fi]*512,ends[fi]*512-1-sample).float()
         fade = (distance/882).clamp(min=0,max=1)
         weight = .5-.5*torch.cos(torch.pi*fade)
-        gain = torch.exp(boost_db[fi]*(np.log(10)/20)*weight)
+        level = boost_db[fi]*weight
+        if self.continuous_vowels:
+            previous=(starts-1).clamp(min=0)
+            following=ends.clamp(max=frames-1)
+            left=torch.where(voiced & voiced[previous] & (starts>0), (boost_db+boost_db[previous])*.5, torch.zeros_like(boost_db))
+            right=torch.where(voiced & voiced[following] & (ends<frames), (boost_db+boost_db[following])*.5, torch.zeros_like(boost_db))
+            edge=torch.where(sample-starts[fi]*512 <= ends[fi]*512-1-sample,left[fi],right[fi])
+            level=level+edge*(1-weight)
+        gain = torch.exp(level*(np.log(10)/20))
         return wave*gain.unsqueeze(0)
 
 def build(acoustic,vocoder,out):
