@@ -66,3 +66,11 @@ DIFFS JA. This follow-up's listening approval is still pending.
 ### 2026-10-26 mo-to-i valley detection
 
 Valley at boundary -2 was missed by the single -4 detector. Use minimum over -6..-1 while retaining gates, threshold, anchors and log-level blend. 6860 Torch/ONNX cases and spectral/level tests pass. Fixed-seed omoi changes only mel208-218; negatta and tokiakasou waves identical. Native OpenUtau omoi errors empty and phoneme metadata identical. Both local banks installed acoustic e709466e1a3bfe472f2c5545aee4403282b6af51dfce28f3d79ebcad8ed19e88, vocoder unchanged, manifest36/36 each. Backups include old models/metadata and220 cache files. AU restarted into original Backup Track9 DIFFS JA180BPM. Release unchanged. Previous i-to-a attack revision user-approved; new mo-to-i listening approval pending. Artifact /Users/aaa/Documents/DiffSinger/artifacts/tokine-oi-continuity-20261026; omoi-comparison.wav before/silence/after. Existing skill research reused, no dependencies added.
+
+### 2026-10-26 接続の音色混合と音量の分離
+
+本人が「あ」をフォルテピアノのように感じると報告し修正要求。保存済比較音声のRMSだけでは開始強→直後弱を再現できなかったため、その聴感の全原因が確定したとはしない。共通bridgeに実装上の偏りを発見：異なる総振幅のmelを混合してからlevel補正すると、強い側の母音が予定alphaより早く音色を支配する。両anchorを単位総振幅へ正規化してから混合し、別のlog-level曲線を適用する方式へ修正。前回の-1.25dB trimは維持し、追加減衰なし。譜面一致を確認、音素位置/F0を変更しない。
+
+6860条件Torch/ONNX一致、level/spectrum検査、anchor gainを変えても正規化スペクトル軌道が不変の検査pass。/i→a/最大フレーム間スペクトルL1差はoriginal .255→.207、donor .304→.202。mel総logenergy差最大1.5e-6未満。旧initializer627件全byte保持。omoiは接続207–218、tokiakasou351–362のみ変更、negatta全wave完全一致。native OpenUtau両phraseのerrorsなし・全phone metadata一致。今回の本人聴感確認は未取得。
+
+artifact `/Users/aaa/Documents/DiffSinger/artifacts/tokine-vowel-shape-20261026`。両bankへacoustic `9f8de7921bac3b31bb74265a8667c1d723be7714b51f8b1a04ac7d7a99b0b0c7` 導入、vocoder331d1329維持。manifest36項目ずつ一致。旧acoustic/metadataとcache220件退避。AU保存→終了→導入→再起動し元バックアップ180BPM/Track9 DIFFS JA復帰を確認。Release未更新。比較`tokiakasou-comparison.wav`は前→0.5秒無音→後。既存skill調査を継続利用、新規依存なし。

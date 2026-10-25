@@ -29,11 +29,14 @@ class LongVowelLink(torch.nn.Module):
         l=mel.gather(1,li.unsqueeze(2).expand(-1,-1,128))
         r=mel.gather(1,ri.unsqueeze(2).expand(-1,-1,128))
         a=(alpha*active).sum(1).unsqueeze(2)
-        # Interpolate linear mel amplitudes; avoid a log-domain formant valley.
-        peak=torch.maximum(l,r)
-        blend=peak+torch.log((1-a)*torch.exp(l-peak)+a*torch.exp(r-peak))
-        # Separate spectral mixing from level interpolation to avoid a loudness bulge.
-        level=(1-a)*torch.logsumexp(l,dim=2,keepdim=True)+a*torch.logsumexp(r,dim=2,keepdim=True)
+        # Mix unit-amplitude spectra so a louder vowel cannot advance its timbre.
+        ll=torch.logsumexp(l,dim=2,keepdim=True)
+        rl=torch.logsumexp(r,dim=2,keepdim=True)
+        ln=l-ll
+        rn=r-rl
+        peak=torch.maximum(ln,rn)
+        blend=peak+torch.log((1-a)*torch.exp(ln-peak)+a*torch.exp(rn-peak))
+        level=(1-a)*ll+a*rl
         blend=blend+level-torch.logsumexp(blend,dim=2,keepdim=True)
         return torch.where(active.any(1).unsqueeze(2),blend,mel)
 

@@ -42,9 +42,15 @@ result=LongVowelLink()(tokens,durations,mel)
 for f in range(start-8,start+4):
  a=(f-(start-8))/12;a=a*a*(3-2*a)
  l=mel[:,start-8];r=mel[:,start+4]
- mix=torch.log((1-a)*l.exp()+a*r.exp())
+ mix=torch.log((1-a)*torch.softmax(l,dim=1)+a*torch.softmax(r,dim=1))
  expected=(1-a)*torch.logsumexp(l,1)+a*torch.logsumexp(r,1)
  torch.testing.assert_close(torch.logsumexp(result[:,f],1),expected)
  delta=result[:,f]-mix
  assert float((delta.max()-delta.min()))<2e-6
 print('level interpolation and spectral shape passed')
+
+# Anchor gain changes must not change normalized transition spectra.
+scaled=mel.clone();scaled[:,start+4]+=2
+y=LongVowelLink()(tokens,durations,scaled)
+torch.testing.assert_close(torch.softmax(y[:,start-8:start+4],2),torch.softmax(result[:,start-8:start+4],2),atol=2e-6,rtol=2e-6)
+print('spectral trajectory independent of anchor gain passed')
