@@ -31,3 +31,20 @@ for previous in [1,3,9,14,16,20,28]:
      assert np.isfinite(exported).all()
      count+=1
 print(f'{count} cases passed')
+# Different anchor energies must follow the intended log-level curve without
+# changing the normalized spectral mixture.
+tokens=torch.tensor([[1,14,3,1]]);durations=torch.tensor([[8,57,52,8]])
+mel=torch.randn(1,125,128)*.2-3
+start=65
+mel[:,start+4]+=1
+mel[:,start-4]-=3
+result=LongVowelLink()(tokens,durations,mel)
+for f in range(start-8,start+4):
+ a=(f-(start-8))/12;a=a*a*(3-2*a)
+ l=mel[:,start-8];r=mel[:,start+4]
+ mix=torch.log((1-a)*l.exp()+a*r.exp())
+ expected=(1-a)*torch.logsumexp(l,1)+a*torch.logsumexp(r,1)
+ torch.testing.assert_close(torch.logsumexp(result[:,f],1),expected)
+ delta=result[:,f]-mix
+ assert float((delta.max()-delta.min()))<2e-6
+print('level interpolation and spectral shape passed')

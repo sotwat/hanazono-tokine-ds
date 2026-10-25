@@ -32,6 +32,9 @@ class LongVowelLink(torch.nn.Module):
         # Interpolate linear mel amplitudes; avoid a log-domain formant valley.
         peak=torch.maximum(l,r)
         blend=peak+torch.log((1-a)*torch.exp(l-peak)+a*torch.exp(r-peak))
+        # Separate spectral mixing from level interpolation to avoid a loudness bulge.
+        level=(1-a)*torch.logsumexp(l,dim=2,keepdim=True)+a*torch.logsumexp(r,dim=2,keepdim=True)
+        blend=blend+level-torch.logsumexp(blend,dim=2,keepdim=True)
         return torch.where(active.any(1).unsqueeze(2),blend,mel)
 
 def build(source,out):

@@ -40,3 +40,25 @@ Final build is `build4`; earlier builds are diagnostic, not installed.
 
 The skill/tool investigation from ENVELOPE_REVISION.md remains applicable to
 this immediate continuation; no dependency or additional skill was installed.
+
+## Follow-up: softer attack
+
+The user accepted smoother continuity but still found /a/'s attack strong.
+Linear spectral mixing also interpolated total amplitude linearly, producing
+up to 0.95 dB extra mel level on the original branch (2.18 dB donor branch)
+relative to a log-level transition. Preserve the normalized mixed spectrum
+and separately interpolate its total level in log amplitude. This changes
+neither the bridge window nor the vowel core after it.
+
+Artifacts: `tokine-ia-attack-20261026/build`. Fixed-seed /o/ and 願った remain
+byte-identical. The boundary's measured three-frame RMS is about 1 dB lower;
+the frame361 window differs by only 0.03 dB. Maximum within-frame spectral
+shape deviation is below 1e-6 log units. The 1960 scope/parity checks and
+additional energy-curve/spectral-shape assertions pass. Native OpenUtau:
+no errors, identical phone metadata, 305664 samples, peak 0.319362.
+
+Installed acoustic SHA256:
+`d1d831db4687bf2af31e1ee45c7c9e9b7879fc598b557efc33f27cb32af4a494`.
+Both 36-entry manifests verified; previous acoustic/metadata and 220 cache
+files backed up. OpenUtau restarted and original score restored at 180 BPM,
+DIFFS JA. This follow-up's listening approval is still pending.
