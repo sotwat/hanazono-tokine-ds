@@ -18,3 +18,9 @@ Artifact `/Users/aaa/Documents/DiffSinger/artifacts/tokine-a-plateau-20261026` i
 Trial only. Neither installed bank nor published release is replaced. Listening acceptance is pending. Compare `tokiakasou-comparison.wav`: existing version, 0.5 seconds silence, trial. No export normalization.
 
 Native OpenUtau trial renders with no errors and exact phone metadata versus the prior version. All 627 existing initializers are byte-identical. Both unaffected full-phrase waveforms are byte-identical under fixed seeds.
+
+## Provisional local adoption
+
+2026-10-26: user requested installing this trial for now. Both Mac banks now contain the exact trial acoustic ca2c97657d4f90f6acaa08f8c60d7bd26fac117a41a024446c508c99fa44d332, with vocoder d61a1bd0 unchanged. All 36 manifest entries per bank verified; previous acoustic/metadata and 87 cache files preserved in artifact installed/. AU restarted into the original Backup score, 180 BPM and Track9 DIFFS JA. Version label and public release unchanged. This is provisional adoption, not confirmation of all quality issues resolved.
+
+2026-10-26 導入済bankをnative OpenUtauで再合成：errors空、試作との全phone metadata一致、44100Hz・305664samples・finite/nonclip確認。
