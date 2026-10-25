@@ -22,8 +22,20 @@ class Trim(torch.nn.Module):
         distance = torch.minimum(sample-control[frame,1]*512,control[frame,2]*512-1-sample)
         weight = .5-.5*torch.cos(torch.pi*(distance/882).clamp(0,1))
         weight = torch.where(control[frame,7]>.5,weight,torch.zeros_like(weight))
-        gain = torch.exp(weight*(-.5*2.302585092994046/20))
+        gain = torch.exp(weight*(-1.25*2.302585092994046/20))
         return torch.where(weight[None,:]>0,wave*gain[None,:],wave)
+
+def retune_vocoder(source, output):
+    """Update an existing -0.5 dB trim without rebuilding other vocoder patches."""
+    import numpy as np
+    model = onnx.load(source)
+    node = next(n for n in model.graph.node if 'avl_/Constant_19_output_0' in n.output)
+    value = node.attribute[0]
+    if not np.isclose(onnx.numpy_helper.to_array(value.t), -.5*np.log(10)/20):
+        raise ValueError('Expected the previous -0.5 dB trim')
+    value.t.CopyFrom(onnx.numpy_helper.from_array(np.array(-1.25*np.log(10)/20,dtype=np.float32)))
+    onnx.checker.check_model(model)
+    onnx.save(model, output)
 
 def build(acoustic,vocoder,out):
     out.mkdir(parents=True,exist_ok=False)
