@@ -6,13 +6,19 @@ import onnx
 from onnx import helper as h,numpy_helper as nh
 import torch
 from train import BreathDecoder
+from train_selected import SelectedBreaths
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'portable'))
 from build_pair import append_model
 
 
 class Acoustic(torch.nn.Module):
     def __init__(self,weights):
-        super().__init__();self.decoder=BreathDecoder();self.decoder.load_state_dict(torch.load(weights,map_location='cpu',weights_only=True))
+        super().__init__()
+        checkpoint=torch.load(weights,map_location='cpu',weights_only=True)
+        if checkpoint.get('kind')=='selected-breaths':
+            self.decoder=SelectedBreaths(checkpoint['durations']);self.decoder.load_state_dict(checkpoint['state_dict'])
+        else:
+            self.decoder=BreathDecoder();self.decoder.load_state_dict(checkpoint)
     def forward(self,mel,tokens,durations,f0):
         starts=durations.cumsum(1)-durations
         t=torch.arange(f0.shape[1])[None,None,:]

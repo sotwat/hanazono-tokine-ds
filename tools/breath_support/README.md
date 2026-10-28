@@ -2,6 +2,18 @@
 
 Local addition after public v1.3.0. The public v1.3.0 archive does not contain this feature.
 
+## Current local revision: accepted 14 takes
+
+The initial 51-candidate output was rejected by the owner as noise. The owner then explicitly selected takes 6, 9, 13, 14, 15, 16, 18, 24, 27, 28, 34, 35, 43 and 45. Only these 14 original clips (4.145 seconds) supply the replacement breath decoder. Unaccepted clips and the old 51-candidate decoder weights are not used for this training.
+
+`train_selected.py` learns each accepted clip's mel trajectory, conditioned on its identity, with a 25→128→128→128 MLP. The former time/duration-only regressor averaged different breaths; a rerun on 12 accepted training clips and 2 held-out clips was barely better than its constant baseline (.63014 vs .63124), so that rerun was not installed. The identity-conditioned model uses all 14 accepted clips, with 278 training frames and 70 held-out interpolation frames. Its selected checkpoint is step2400, normalized interpolation MSE .015217 vs constant baseline 1.036301. These are within-recording reconstruction diagnostics, not unseen-recording validation or proof of listening quality. The owner has not yet approved the new synthesized audio.
+
+At inference an AP selects the accepted identity nearest its requested duration. Its normalized time trajectory is stretched to the note length; conditioning uses the recorded duration to avoid out-of-distribution duration features. Identity does not change inside one AP. The model predicts mel and uses the existing neural vocoder; it does not paste recorded waveform samples. The existing AP32 mask/F0-zero/output routing is retained.
+
+Reproduce this revision with `python tools/breath_support/train_selected.py SELECTED_DATASET NEW_TRAINING_DIR`, then use the build/check commands below with its decoder.pt and a clean approved v1.3.0 bank. `build.py` supports both checkpoint formats. Keep the paired models and refresh the installed manifest together. Two no-AP fixtures remain bit identical in mel and waveform; 15 duration/pitch cases pass. Native OpenUtau AP/ni/tsu renders report no errors and unchanged ni/tsu phoneme metadata. The Mac installation uses local revision `2026-10-28-selected14-breath`; the public ZIP remains unchanged. The following section records the initial, superseded candidate experiment.
+
+## Initial candidate experiment (superseded)
+
 The singer's existing recordings supply the breaths. FoxBreatheLabeler first classifies only existing aligned SP/AP pause intervals. Threshold .4 finds complete events; require mean probability >=.60, peak >=.8, duration .12–1.1 seconds, RMS >=-55 dBFS and no near clipping. These gates reduce consonant contamination, but classifier labels are not human listening annotations. The selected set has 51 excerpts from 22 songs, 12.208 seconds. Original audio is untouched. New labels/clips and checkpoints stay in the private artifact directory.
 
 Train a small duration-conditioned 11→96→96→128 mel decoder on 42 clips, reserving 9 clips from four other songs for validation. Per-recording gain is normalized toward -33 dBFS (gain capped at 15), keeping within-clip envelope and spectrum. The selected checkpoint is step300 out of 1800 steps: validation normalized MSE .68891, constant training-mean baseline .78931. Selection uses validation; these are spectral diagnostics, not a proof of perceptual quality. Seed2741, AdamW lr.002, weight_decay.01. This is a dedicated breath decoder learned from recordings, not a full singing-model retrain or a copied sample playback.
