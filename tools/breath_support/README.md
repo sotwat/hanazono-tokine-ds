@@ -1,8 +1,12 @@
 # Recording-derived AP breaths
 
-Local addition after public v1.3.0. The public v1.3.0 archive does not contain this feature.
+Experimental addition after public v1.3.0, withdrawn from the Mac installation on 2026-10-28 at the owner's request. The owner rejected the synthesized breaths. The public v1.3.0 archive never contained this feature.
 
-## Current local revision: accepted 14 takes
+## Current installation: pre-breath version restored
+
+Both local Mac banks were restored from the snapshots taken immediately before the first breath installation. Their 36-file manifests match the original snapshot, including the acoustic/vocoder pair, AP/SP token1 dictionary, dsdict and local revision `2026-10-26-ni-tsu-stability`. Acoustic SHA256: `a22fc80f3bfb403c220a669ecc53819f5ef27f9b22699dd546a52aaeb42c8568`; vocoder SHA256: `f1b9b528a8529ae1ad6f8ae2ab4a8801ea18baf91ccd0e7b09beaa4de62cfd0a`. The AP32 additions and breath instructions are no longer installed. Recordings, accepted-take selections and experimental source/checkpoints remain available for history; do not reinstall the experiment without a new request. Public release v1.3.0 is unchanged.
+
+## Rejected experimental revision: accepted 14 takes
 
 The initial 51-candidate output was rejected by the owner as noise. The owner then explicitly selected takes 6, 9, 13, 14, 15, 16, 18, 24, 27, 28, 34, 35, 43 and 45. Only these 14 original clips (4.145 seconds) supply the replacement breath decoder. Unaccepted clips and the old 51-candidate decoder weights are not used for this training.
 
