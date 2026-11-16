@@ -1,16 +1,18 @@
 # 花園トキネDS
 
-OpenUtau向けの日本語DiffSinger歌声音源です。修正済み録音への差し替えと追加素材を使った学習更新に加え、ロングトーンの歪み・途中の音量の膨らみ・母音接続・子音の発音を調整しました。2026年10月26日までにMacへ反映したモデルと同じ一式です。
+OpenUtau向けの日本語DiffSinger歌声音源です。修正済み録音への差し替えと追加素材を使った学習更新に加え、ロングトーンの歪み・途中の音量の膨らみ・母音接続・子音の発音を調整しました。2026年11月16日にMacへ反映した音量補正を含みます。
 
-[最新版の配布ZIP](https://github.com/sotwat/hanazono-tokine-ds/releases/latest) · [v1.3.0の変更点](https://github.com/sotwat/hanazono-tokine-ds/releases/tag/v1.3.0)
+[最新版の配布ZIP](https://github.com/sotwat/hanazono-tokine-ds/releases/latest) · [v1.3.1の変更点](https://github.com/sotwat/hanazono-tokine-ds/releases/tag/v1.3.1)
 
 ## ダウンロードと導入
 
-`HanazonoTokineDS-v1.3.0.zip` をOpenUtauの「ツール」→「音源をインストール」から読み込んでください。再起動後、歌手「花園トキネDS v1.3.0」、フォネマイザ「DIFFS JA」、レンダラー「DIFFSINGER」を選びます。Pythonや追加プラグインは不要です。
+`HanazonoTokineDS-v1.3.1.zip` をOpenUtauの「ツール」→「音源をインストール」から読み込んでください。再起動後、歌手「花園トキネDS v1.3.1」、フォネマイザ「DIFFS JA」、レンダラー「DIFFSINGER」を選びます。Pythonや追加プラグインは不要です。
 
 旧版とは別の歌手名で登録されます。既存の曲で使う場合は、トラックの歌手を新版へ変更してください。他のUTAU音源を削除する必要はありません。
 
 ## 変更点
+
+- v1.3.0から、出力音量を最大3 dB上げました。フレーズ全体に同じ倍率を適用し、ピークに余裕がない場合は増幅を抑えます。フレーズ内の抑揚・音色・発音タイミングは維持します。
 
 - 修正済みのサムライハート・I beg you・メルト・花になってと、新しく追加された録音素材を学習更新に使用しました。本人録音の選別後321区間のうち、294区間を学習、27区間を検証に使用しています。
 - ロングトーンの持続処理と合成経路を更新し、機械的な歪みと途中の音量の膨らみを抑えました。

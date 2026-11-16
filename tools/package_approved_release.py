@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 import shutil
+import subprocess
 import zipfile
 from pathlib import Path
 
@@ -27,7 +28,9 @@ def build(source, output, version, readme):
             continue
         target = bank / relative
         target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(src, target)
+        cloned = subprocess.run(['cp', '-c', str(src), str(target)], capture_output=True)
+        if cloned.returncode:
+            shutil.copy2(src, target)
     name = bank.name
     meta = yaml.safe_load((bank / 'character.yaml').read_text())
     meta['name'] = name
@@ -55,7 +58,9 @@ def build(source, output, version, readme):
                 if key in data:
                     assert (config.parent / data[key]).is_file(), (config, key)
     files = {str(p.relative_to(bank)): sha(p) for p in sorted(bank.rglob('*')) if p.is_file()}
-    manifest = {'version': version, 'status': 'stable', 'source_revision': '2026-10-26-ni-tsu-stability', 'files': files}
+    revision = json.loads((source / 'LOCAL_REVISION.json').read_text())
+    source_revision = '2026-11-16-output-gain' if revision.get('output_gain') else '2026-10-26-ni-tsu-stability'
+    manifest = {'version': version, 'status': 'stable', 'source_revision': source_revision, 'files': files}
     (bank / 'version.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
     archive = output / f'HanazonoTokineDS-v{version}.zip'
     with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED) as z:
